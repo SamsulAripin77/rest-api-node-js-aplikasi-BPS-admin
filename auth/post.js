@@ -170,7 +170,7 @@ app.post("/user", (req, res)=>{
         })
         .catch(function(error) {
           
-          res.status(400).send('galgal')
+          res.status(400).send('gagal')
           console.log("Error creating new user:", error);
           });
         // end create user

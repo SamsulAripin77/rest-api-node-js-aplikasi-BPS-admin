@@ -12,7 +12,7 @@ app.put("/user", (req, res)=>{
   /**
    * contoh request
    * {
-  "deviceTokens": "12313;",
+  	"deviceTokens": "12313;",
     "jabatan": "Koordinator Statistik Kecamatan",
     "jabatanLengkap": "Koordinator Statistik Kecamatan",
     "kodeWilayah": "3202",
@@ -132,7 +132,8 @@ app.put("/user", (req, res)=>{
           
     })
     .catch(function(error) {
-        console.log("Error fetching user data:", error);
+
+        res.status(400).send(error)
         res.send("user tidak ditemukan atau lihat log untuk detail")
     });
 
