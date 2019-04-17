@@ -9,8 +9,8 @@ app.use(bodyParser.json());
 
 // get user
 app.get("/user", (req, res)=>{
-    const email = req.body.email
-    const kode_wilayah = req.body.kode_wilayah
+    const email = '17184065@email.com'
+    const kode_wilayah = '3202'
 
     console.log(`email : ${email} dan kode wilayah ${kode_wilayah}`);
     const alluid = []
@@ -144,7 +144,7 @@ app.get("/user", (req, res)=>{
         
         
         // read
-        if(email != undefined){
+        if(email !== undefined){
             admin.auth().getUserByEmail(email)
             .then(function(userRecord) {
             

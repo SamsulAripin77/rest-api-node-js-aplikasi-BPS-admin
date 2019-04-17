@@ -5,6 +5,7 @@ const get = require('./auth/get.js')
 const update = require('./auth/update.js')
 const post = require('./auth/post.js')
 const delet = require('./auth/delete.js')
+const listPegawai = require('./auth/listPegawai.js')
 const bodyParser = require('body-parser')
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -15,6 +16,7 @@ app.use(get)
 app.use(update)
 app.use(post)
 app.use(delet)
+app.use(listPegawai)
 
 
 
@@ -35,7 +37,8 @@ admin.initializeApp({
 // 			})
 // 		})
 // 		})
-
-app.listen(7812, ()=>{
-    console.log("listen to 7812");
+const port = process.env.port || 5000
+app. listen(port , ()=>{
+	console.log('server berjalan di port '+ port)
 })
+
