@@ -8,7 +8,9 @@ const delet = require('./auth/delete.js')
 const listPegawai = require('./auth/listPegawai.js')
 const bodyParser = require('body-parser')
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(bodyParser.json());
 
 
@@ -22,8 +24,8 @@ app.use(listPegawai)
 
 const serviceAccount = require("./sistempenggansipresensi-firebase-adminsdk-qryrr-23f42c2565.json");
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://sistempenggansipresensi.firebaseio.com"
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://sistempenggansipresensi.firebaseio.com"
 });
 
 // var dbRef = admin.database().ref("3202")
@@ -38,7 +40,6 @@ admin.initializeApp({
 // 		})
 // 		})
 const port = process.env.port || 5000
-app. listen(port , ()=>{
-	console.log('server berjalan di port '+ port)
+app.listen(port, () => {
+    console.log('server berjalan di port ' + port)
 })
-
