@@ -127,6 +127,7 @@ app.get('/getUser', (req, res) => {
                             console.log('detektor 4')
                             console.log(allvalue)
                             res.send(allvalue)
+                            ref.off('value');
                         })
                         // end read database
 
