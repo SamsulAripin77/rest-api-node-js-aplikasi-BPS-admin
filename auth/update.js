@@ -106,6 +106,7 @@ app.put("/updateUser", (req, res) => {
                                                     nip,
                                                     password,
                                                     uid,
+                                                    nip_atasan,
                                                     nama_atasan,
                                                     uidAtasan
                                                 })

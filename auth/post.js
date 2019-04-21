@@ -59,8 +59,7 @@ app.post("/postUser", (req, res) => {
         //=====================================================
     let kode = kodeWilayah
         // const name = 'juhdi rosadi'
-    const cekAtasan = admin.database().ref(`/${kode}/user/`)
-    cekAtasan.orderByChild("nip").equalTo(nip_atasan).once('value', function(snapshot) {
+    const cekAtasan = admin.database().ref(`/${kode}/user/`).orderByChild("nip").equalTo(nip_atasan).once('value', function(snapshot) {
             if (snapshot.exists()) {
                 console.log(nip)
                 console.log(snapshot.val())
@@ -134,6 +133,7 @@ app.post("/postUser", (req, res) => {
                                         nip,
                                         password,
                                         uid,
+                                        nip_atasan,
                                         nama_atasan,
                                         uidAtasan
                                     })

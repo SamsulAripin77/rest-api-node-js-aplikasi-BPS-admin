@@ -16,10 +16,7 @@ app.get("/user", (req, res)=>{
     const alluid = []
     
     const allvalue = []
-  
-    
-    
-    
+ 
     // read all data function
     function listAllUsers(nextPageToken) {
 

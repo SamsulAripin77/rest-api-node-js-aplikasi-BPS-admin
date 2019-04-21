@@ -79,8 +79,8 @@ app.get('/usercheck', (req, res) => {
 
 app.get('/getUser', (req, res) => {
 
-    const email = req.body.email
-    const kode_wilayah = req.body.kode_wilayah
+    const email = req.body.email || 'adminSipp@email.com'
+    const kode_wilayah = req.body.kode_wilayah || '3202'
     console.log(`email : ${email} dan kode wilayah ${kode_wilayah}`);
     const alluid = []
     const allvalue = []
