@@ -7,62 +7,42 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
-
-
-// delete user
-
-app.delete("/deleteUser", (req, res) => {
-
+app.delete('/deleteUser', (req, res) => {
     const email = req.body.email
-    const kodewilayah = req.body.kodewilayah
+    const kode_wilayah = req.body.kode_wilayah
+    const db = admin.database()
     const nip = email.substring(0, email.indexOf("@"));
 
-    if (kodewilayah === undefined) {
-        res.send("Kode wilayah harus diisi")
-    } else {
-        if (email != undefined) {
-            admin.auth().getUserByEmail(email)
-                .then((userRecord) => {
-                    // See the UserRecord reference doc for the contents of userRecord.
+    admin.auth().getUserByEmail(email)
+        .then((userRecord) => {
+            function deleteUser() {
+                const uid = userRecord.uid
+                admin.auth().deleteUser(uid)
+                const ref1 = db.ref(`/${kode_wilayah}/user/${uid}`)
+                ref1.remove()
+                console.log('data yang dihapus', uid)
+            }
 
-                    const uid = userRecord.uid
-                    console.log("Successfully fetched user data:", uid);
+            function deleteCekUser() {
+                const ref = db.ref(`/${kode_wilayah}/cekuser/${nip}`)
+                ref.remove()
+                console.log('sukses menghapus data di cek user')
+            }
 
-                    //delete
-                    admin.auth().deleteUser(uid)
-                        .then(() => {
-                            // database
-                            const db = admin.database()
-                            const ref = db.ref(`/${kodewilayah}/user/${uid}`)
-                            ref.remove()
-                            console.log("Successfully deleted user");
-                        })
-                        .then(() => {
-                            console.log("Remove succeeded.")
-                            const ref1 = db.ref(`/${kodewilayah}/${nip}`)
-                            ref1.remove()
+            function deleteBoth() {
+                deleteUser();
+                deleteCekUser();
+                console.log('berhaisl meghapus data di kedua node')
+                res.send('berhasil menghapus data dikedua node')
+            }
 
-                        })
+            deleteBoth()
 
-                    // end database
-
-                    .catch((error) => {
-                        console.log("Error deleting user:", error);
-                        res.send("Deleting user failed with :" + error)
-                    });
-
-                })
-                .catch((error) => {
-                    console.log("Error fetching user data:", error);
-                    res.send(error)
-                });
-        } else {
-            console.log("email tidak di isi");
-            res.send("Email tidak diisi")
-        }
-    }
+        })
+        .catch((error) => {
+            console.log('terjadi error', error)
+            res.status(404).send('error terjadi di ' + error)
+        })
 })
-
-// end delete user
 
 module.exports = app
