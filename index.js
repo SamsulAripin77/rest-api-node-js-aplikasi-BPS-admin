@@ -6,7 +6,7 @@ const update = require('./auth/update.js')
 const post = require('./auth/post.js')
 const delet = require('./auth/delete.js')
 const listPegawai = require('./auth/listPegawai.js')
-const diizinkan = require('./auth/getDataDiterima')
+const diizinkan = require('./auth/dataPresensi')
 const bodyParser = require('body-parser')
 
 app.use(bodyParser.urlencoded({
