@@ -29,17 +29,6 @@ admin.initializeApp({
     databaseURL: "https://sistempenggansipresensi.firebaseio.com"
 });
 
-// var dbRef = admin.database().ref("3202")
-// app.get('/getAtasan', (req,res)=>{
-// 	nama_atasan = req.body.nama_atasan
-// 	dbRef.child("user").orderByChild('nama').equalTo(nama_atasan).once("value", function(snapshot){
-// 			snapshot.forEach( function(data){
-// 				console.log('subagya')
-// 					 res.send('ok')
-// 				     res.send(data.val())
-// 			})
-// 		})
-// 		})
 const port = process.env.port || 5000
 app.listen(port, () => {
     console.log('server berjalan di port ' + port)

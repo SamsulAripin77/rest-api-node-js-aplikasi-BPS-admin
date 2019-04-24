@@ -41,7 +41,8 @@ app.delete('/deleteUser', (req, res) => {
         })
         .catch((error) => {
             console.log('terjadi error', error)
-            res.status(404).send('error terjadi di ' + error)
+        res.status(404)
+        res.send('error terjadi di ' + error)
         })
 })
 

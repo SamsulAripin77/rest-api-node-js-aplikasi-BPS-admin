@@ -47,7 +47,8 @@ app.get('/ditolak', (req, res) => {
             })
             .catch((error) => {
                 console.log('error terjadi di :', error)
-                res.status(404).send('data tidak terkirim')
+                res.status(404)
+                res.send('data tidak terkirim')
             })
 
     }
@@ -93,7 +94,8 @@ app.get('/diizinkan', (req, res) => {
             })
             .catch((error) => {
                 console.log('error terjadi di :', error)
-                res.status(404).send('data tidak terkirim')
+                res.status(404)
+                res.send('data tidak terkirim')
             })
 
     }

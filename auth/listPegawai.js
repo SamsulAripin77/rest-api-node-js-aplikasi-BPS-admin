@@ -43,7 +43,8 @@ app.get('/usercheck', (req, res) => {
         })
         .catch((error) => {
             console.log('errror di pencarian atasan')
-            res.status(404).send('error di pencarian atasan')
+            res.status(404)
+            res.send('error terjadi di ' + error)
         })
 })
 
@@ -136,6 +137,8 @@ app.get('/getUser', (req, res) => {
             })
             .catch(function(error) {
                 console.log("Error listing users:", error);
+                res.status(404)
+                res.send('error terjadi di ' + error)
             });
     }
 
@@ -161,7 +164,8 @@ app.get('/getUser', (req, res) => {
             }
         })
         .catch((error) => {
-            res.status(404).send('tidak dapat terhubung ke database :', error)
+            res.status(404)
+            res.send('error terjadi di ' + error)
             console.log(error)
         })
 })

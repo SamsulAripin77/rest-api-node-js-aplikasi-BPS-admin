@@ -149,7 +149,8 @@ app.post("/postUser", (req, res) => {
                                             })
                                             .catch(function(error) {
                                                 res.send("gagal save user ke cekuser" + error)
-                                                res.status(400).send('galgal')
+                                                res.status(404)
+                                                res.send('error terjadi di ' + error)
 
                                                 // delete user yang sudah dibuat
                                                 admin.auth().deleteUser(uid)
@@ -163,7 +164,8 @@ app.post("/postUser", (req, res) => {
                                     })
                                     .catch(function(error) {
                                         res.send("gagal save user ke user" + error)
-                                        res.status(400).send('galgal')
+                                        res.status(404)
+                                        res.send('error terjadi di ' + error)
                                             // delete user yang sudah dibuat
                                         admin.auth().deleteUser(uid)
                                             .then(function() {
@@ -171,12 +173,15 @@ app.post("/postUser", (req, res) => {
                                             })
                                             .catch(function(error) {
                                                 console.log("Error deleting user:", error);
+                                                res.status(404)
+                                                res.send('error terjadi di ' + error)
                                             });
                                     })
                             })
                             .catch(function(error) {
 
-                                res.status(400).send('gagal')
+                                res.status(404)
+                                res.send('error terjadi di ' + error)
                                 console.log("Error creating new user:", error);
                             });
                         // end create user
@@ -186,12 +191,14 @@ app.post("/postUser", (req, res) => {
 
             } else {
                 console.log('nip atasan tidak ditemukan')
-                res.status(404).send('nip atasan tidak ditemukan')
+                res.status(404)
+                res.send('error terjadi di ' + error)
             }
         })
         .catch((error) => {
             console.log("eror di pencarian uid atasan")
-            res.status(404).send("error di pencarian uid atasan")
+            res.status(404)
+            res.send('error terjadi di ' + error)
         })
 })
 

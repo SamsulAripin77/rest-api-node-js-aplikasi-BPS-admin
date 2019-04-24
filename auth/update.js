@@ -123,14 +123,16 @@ app.put("/updateUser", (req, res) => {
 
                                                         })
                                                         .catch(function(error) {
-                                                            res.send("update user di cekuser gagal")
+                                                            res.status(404)
+                                                            res.send('error terjadi di ' + error)
                                                             console.log("update user dicek user gagal :" + error);
 
                                                         })
 
                                                 })
                                                 .catch(function(error) {
-                                                    res.send("update user di user gagal")
+                                                    res.status(404)
+                                                    res.send('error terjadi di ' + error)
                                                     console.log("update user di user gagal :" + error);
 
                                                 })
@@ -140,7 +142,8 @@ app.put("/updateUser", (req, res) => {
                                 })
                                 .catch(function(error) {
                                     console.log("Error updating user:", error);
-                                    res.send("update di auth: " + error)
+                                    res.status(404)
+                                    res.send('error terjadi di ' + error)
                                 });
                             // end database
 
@@ -149,18 +152,21 @@ app.put("/updateUser", (req, res) => {
                         .catch(function(error) {
 
                             res.status(400).send(error)
-                            res.send("user tidak ditemukan atau lihat log untuk detail")
+                            res.status(404)
+                            res.send('error terjadi di ' + error)
                         });
                 });
 
             } else {
                 console.log('nip atasan tidak ditemukan')
-                res.status(404).send('nip atasan tidak ditemukan')
+                res.status(404)
+                res.send('error terjadi di ' + error)
             }
         })
         .catch((error) => {
             console.log("eror di pencarian uid atasan")
-            res.status(404).send("error di pencarian uid atasan")
+            res.status(404)
+            res.send('error terjadi di ' + error)
         })
 
 
