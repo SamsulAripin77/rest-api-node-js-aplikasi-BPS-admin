@@ -1,0 +1,54 @@
+[33mcommit 818c4ea00543fe4eb8a51c93aa05baa83a5a1b0a[m[33m ([m[1;36mHEAD[m[33m)[m
+Author: arifins192@gmail.com <samsul>
+Date:   Sun Apr 21 20:39:33 2019 +0700
+
+    commite ini ditujukanuntuk mengecek penambahan file baru apakah ada di gitlab atau tidak
+
+[33mcommit 78cb4724deb5a112e1241d65dbaa0a2101fafa8c[m
+Author: arifins192@gmail.com <samsul>
+Date:   Fri Apr 19 16:59:42 2019 +0700
+
+    fungsi crud sejauh ini sudah bekerja dengan baik jika diuji dengan postman belum pake delphi selanjutnya kita mau uji pake delphi deh
+
+[33mcommit 7a53edc9d89a0b3fee461b52244f81ee4e2a4138[m[33m ([m[1;35mrefs/stash[m[33m)[m
+Merge: 0432b49 4500810
+Author: arifins192@gmail.com <samsul>
+Date:   Fri Apr 19 14:07:33 2019 +0700
+
+    WIP on (no branch): 0432b49 update fungsi post dan dan get penyempurnaan dari repository sebelumnya karna di repository yang sebelumnya method get akan error cannot send header bla bla bla ketika ada data di firebase yang dihapus itu bterjadi karna fungi baca database yang digunakan adalan ref.on sehigga database trus aktif dan menunggu callback maka dari itu saya ganti ref.on menjadi ref.once dan sekarang lebih baik saya tidak tau apakah akan ada eror lagi tapi ini sudah diuji dengan delphi Idhttp
+
+[33mcommit 45008105c803c75b31f59308df34c82e4c7bfcae[m
+Author: arifins192@gmail.com <samsul>
+Date:   Fri Apr 19 14:07:33 2019 +0700
+
+    index on (no branch): 0432b49 update fungsi post dan dan get penyempurnaan dari repository sebelumnya karna di repository yang sebelumnya method get akan error cannot send header bla bla bla ketika ada data di firebase yang dihapus itu bterjadi karna fungi baca database yang digunakan adalan ref.on sehigga database trus aktif dan menunggu callback maka dari itu saya ganti ref.on menjadi ref.once dan sekarang lebih baik saya tidak tau apakah akan ada eror lagi tapi ini sudah diuji dengan delphi Idhttp
+
+[33mcommit 0432b49b651c50da506f7501982c37ca18c47870[m
+Author: arifins192@gmail.com <samsul>
+Date:   Fri Apr 19 00:47:22 2019 +0700
+
+    update fungsi post dan dan get penyempurnaan dari repository sebelumnya karna di repository yang sebelumnya method get akan error cannot send header bla bla bla ketika ada data di firebase yang dihapus itu bterjadi karna fungi baca database yang digunakan adalan ref.on sehigga database trus aktif dan menunggu callback maka dari itu saya ganti ref.on menjadi ref.once dan sekarang lebih baik saya tidak tau apakah akan ada eror lagi tapi ini sudah diuji dengan delphi Idhttp
+
+[33mcommit 7f4ab5de784f6647696cb33c8483b6cf59c16b3a[m
+Author: arifins192@gmail.com <samsul>
+Date:   Thu Apr 18 17:54:51 2019 +0700
+
+    get dan post data berhasil
+
+[33mcommit 8f5ac1a7eeb1f1adc112b1cef3b75e0fdd59ff99[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: arifins192@gmail.com <samsul>
+Date:   Wed Apr 17 23:55:45 2019 +0700
+
+    update saat ini baru berhasil get data user dan berhasil post data tapi uid atasan belum dapat dimasukan otomatis
+
+[33mcommit 2d614b71afc600a6f77cecc6c5356a0bca2d4d63[m
+Author: arifins192@gmail.com <samsul>
+Date:   Sun Apr 14 23:12:52 2019 +0700
+
+    ini adalah commit sebelum disimpan ke gitlab sejauh ini belum ada error tapi nanti baru akan dicoba untuk test rest api dengan delphi lewat dbgrid atau tidak pake Idhttp
+
+[33mcommit 90980c9656cb1027f8b23a144d8bf014b1341c03[m
+Author: arifins192@gmail.com <samsul>
+Date:   Sat Apr 13 23:29:11 2019 +0700
+
+    ini adalah commit pertama post sukses
