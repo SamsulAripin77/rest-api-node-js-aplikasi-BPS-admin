@@ -1,0 +1,376 @@
+[1mdiff --git a/auth/getAllow.js b/auth/getAllow.js[m
+[1mindex a2fe3a8..e443eca 100644[m
+[1m--- a/auth/getAllow.js[m
+[1m+++ b/auth/getAllow.js[m
+[36m@@ -3,194 +3,200 @@[m [mconst express = require('express')[m
+ const bodyParser = require('body-parser')[m
+ const app = express.Router()[m
+ [m
+[31m-app.use(bodyParser.urlencoded({extended: true}));[m
+[32m+[m[32mapp.use(bodyParser.urlencoded({[m
+[32m+[m[32m    extended: true[m
+[32m+[m[32m}));[m
+ app.use(bodyParser.json());[m
+ [m
+ [m
+ // get user[m
+[31m-app.get("/allow", (req, res)=>{[m
+[31m-    const email = req.body.email[m
+[31m-    const kode_wilayah = req.body.kode_wilayah[m
+[31m-[m
+[31m-    console.log(`email : ${email} dan kode wilayah ${kode_wilayah}`);[m
+[31m-    const alluid = [][m
+[31m-    [m
+[31m-    const allvalue = [][m
+[31m-  [m
+[31m-    [m
+[31m-    [m
+[31m-    [m
+[31m-    // read all data function[m
+[31m-    function listAllUsers(nextPageToken) {[m
+[31m-[m
+[31m-        // List batch of users, 1000 at a time.[m
+[31m-        [m
+[31m-        admin.auth().listUsers(1000, nextPageToken)[m
+[31m-          .then(function(listUsersResult) {[m
+[31m-            listUsersResult.users.forEach(function(userRecord) {[m
+[31m-              console.log("user", userRecord.toJSON());[m
+[31m-              alluid.push(userRecord.uid)[m
+[31m-            });[m
+[31m-           [m
+[31m-            if (listUsersResult.pageToken) {[m
+[31m-              // List next batch of users.[m
+[31m-              listAllUsers(listUsersResult.pageToken)[m
+[31m-[m
+[31m-            //   read database[m
+[31m-              const kodewilayah = [][m
+[31m-                const db = admin.database()[m
+[31m-                const ref1 = db.ref("/")[m
+[31m-                ref1.on("value", function(snapshot){[m
+[31m-                    [m
+[31m-                    snapshot.forEach(function(data){[m
+[31m-                        kodewilayah.push(data.key)[m
+[31m-                        console.log("kode wilayah :"+data.key);[m
+[31m-                    })[m
+[31m-                    [m
+[31m-                    var i;[m
+[31m-                    var e;[m
+[31m-                    for(i = 0; i<kodewilayah.length; i++){[m
+[31m-                        for(e=0;e<alluid.length;e++){[m
+[31m-                            const ref2 = db.ref(`/${kodewilayah[i]}/user/${alluid[e]}`)[m
+[31m-                            ref2.on("value", function(snapshot2){[m
+[31m-                                const value = snapshot2.val()[m
+[31m-                                console.log(kodewilayah);[m
+[31m-                                [m
+[31m-                                if(value != null){[m
+[31m-                                    allvalue.push(value)[m
+[32m+[m[32mapp.get("/allow", (req, res) => {[m
+[32m+[m[32m        const email = req.body.email[m
+[32m+[m[32m        const kode_wilayah = req.body.kode_wilayah[m
+[32m+[m
+[32m+[m[32m        console.log(`email : ${email} dan kode wilayah ${kode_wilayah}`);[m
+[32m+[m[32m        const alluid = [][m
+[32m+[m
+[32m+[m[32m        const allvalue = [][m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32m        // read all data function[m
+[32m+[m[32m        function listAllUsers(nextPageToken) {[m
+[32m+[m
+[32m+[m[32m            // List batch of users, 1000 at a time.[m
+[32m+[m
+[32m+[m[32m            admin.auth().listUsers(1000, nextPageToken)[m
+[32m+[m[32m                .then(function(listUsersResult) {[m
+[32m+[m[32m                    listUsersResult.users.forEach(function(userRecord) {[m
+[32m+[m[32m                        console.log("user", userRecord.toJSON());[m
+[32m+[m[32m                        alluid.push(userRecord.uid)[m
+[32m+[m[32m                    });[m
+[32m+[m
+[32m+[m[32m                    if (listUsersResult.pageToken) {[m
+[32m+[m[32m                        // List next batch of users.[m
+[32m+[m[32m                        listAllUsers(listUsersResult.pageToken)[m
+[32m+[m
+[32m+[m[32m                        //   read database[m
+[32m+[m[32m                        const kodewilayah = [][m
+[32m+[m[32m                        const db = admin.database()[m
+[32m+[m[32m                        const ref1 = db.ref("/")[m
+[32m+[m[32m                        ref1.on("value", function(snapshot) {[m
+[32m+[m
+[32m+[m[32m                                snapshot.forEach(function(data) {[m
+[32m+[m[32m                                    kodewilayah.push(data.key)[m
+[32m+[m[32m                                    console.log("kode wilayah :" + data.key);[m
+[32m+[m[32m                                })[m
+[32m+[m
+[32m+[m[32m                                var i;[m
+[32m+[m[32m                                var e;[m
+[32m+[m[32m                                for (i = 0; i < kodewilayah.length; i++) {[m
+[32m+[m[32m                                    for (e = 0; e < alluid.length; e++) {[m
+[32m+[m[32m                                        const ref2 = db.ref(`/${kodewilayah[i]}/user/${alluid[e]}`)[m
+[32m+[m[32m                                        ref2.on("value", function(snapshot2) {[m
+[32m+[m[32m                                            const value = snapshot2.val()[m
+[32m+[m[32m                                            console.log(kodewilayah);[m
+[32m+[m
+[32m+[m[32m                                            if (value != null) {[m
+[32m+[m[32m                                                allvalue.push(value)[m
+[32m+[m[32m                                            }[m
+[32m+[m
+[32m+[m[32m                                        })[m
+[32m+[m[32m                                    }[m
+                                 }[m
+ [m
+[32m+[m[32m                                console.log(allvalue)[m
+[32m+[m[32m                                res.send(allvalue)[m
+                             })[m
+[31m-                        }   [m
+[32m+[m[32m                            // end read database[m
+[32m+[m
+                     }[m
+ [m
+[31m-                    console.log(allvalue) [m
+[31m-                    res.send(allvalue)                [m
+                 })[m
+[31m-                // end read database[m
+[31m-             [m
+[31m-            }[m
+[31m-          [m
+[31m-        })[m
+[31m-        .catch(function(error) {[m
+[31m-            console.log("Error listing users:", error);[m
+[31m-        });[m
+[31m-    }      [m
+[31m-[m
+[31m-    // if kode wilayah have a value[m
+[31m-    if(kode_wilayah === undefined){[m
+[31m-[m
+[31m-        // if email have n a value[m
+[31m-        if(email != undefined){[m
+[31m-            [m
+[31m-            admin.auth().getUserByEmail(email)[m
+[31m-            .then(function(userRecord) {[m
+[31m-            [m
+[31m-                // See the UserRecord reference doc for the contents of userRecord.[m
+[31m-            [m
+[31m-                const uid = userRecord.uid[m
+[31m-                console.log("user uid:", uid);[m
+[31m-                [m
+[31m-                // database[m
+[31m-[m
+[31m-                const kodewilayah = [][m
+[31m-                const db = admin.database()[m
+[31m-                const ref1 = db.ref("/")[m
+[31m-                ref1.on("value", function(snapshot){[m
+[31m-                    [m
+[31m-                    snapshot.forEach(function(data){[m
+[31m-                        kodewilayah.push(data.key)[m
+[31m-                        console.log("kode wilayah :"+data.key);[m
+[32m+[m[32m                .catch(function(error) {[m
+[32m+[m[32m                    console.log("Error listing users:", error);[m
+[32m+[m[32m                });[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        // if kode wilayah have a value[m
+[32m+[m[32m        if (kode_wilayah === undefined) {[m
+[32m+[m
+[32m+[m[32m            // if email have n a value[m
+[32m+[m[32m            if (email != undefined) {[m
+[32m+[m
+[32m+[m[32m                admin.auth().getUserByEmail(email)[m
+[32m+[m[32m                    .then(function(userRecord) {[m
+[32m+[m
+[32m+[m[32m                        // See the UserRecord reference doc for the contents of userRecord.[m
+[32m+[m
+[32m+[m[32m                        const uid = userRecord.uid[m
+[32m+[m[32m                        console.log("user uid:", uid);[m
+[32m+[m
+[32m+[m[32m                        // database[m
+[32m+[m
+[32m+[m[32m                        const kodewilayah = [][m
+[32m+[m[32m                        const db = admin.database()[m
+[32m+[m[32m                        const ref1 = db.ref("/")[m
+[32m+[m[32m                        ref1.on("value", function(snapshot) {[m
+[32m+[m
+[32m+[m[32m                            snapshot.forEach(function(data) {[m
+[32m+[m[32m                                kodewilayah.push(data.key)[m
+[32m+[m[32m                                console.log("kode wilayah :" + data.key);[m
+[32m+[m[32m                            })[m
+[32m+[m
+[32m+[m[32m                            var i;[m
+[32m+[m[32m                            for (i = 0; i < kodewilayah.length; i++) {[m
+[32m+[m[32m                                const ref2 = db.ref(`/${kodewilayah[i]}/user/${uid}`)[m
+[32m+[m[32m                                ref2.on("value", function(snapshot2) {[m
+[32m+[m[32m                                    const value = snapshot2.val()[m
+[32m+[m[32m                                    console.log(kodewilayah);[m
+[32m+[m
+[32m+[m[32m                                    if (value != null) {[m
+[32m+[m[32m                                        res.send(value)[m
+[32m+[m[32m                                        console.log(value);[m
+[32m+[m[32m                                    }[m
+[32m+[m
+[32m+[m[32m                                    /** kode ini apabila di berikan else maka akan error[m
+[32m+[m[32m                                     * apabila tidak diberikan else maka apabila user tidak[m
+[32m+[m[32m                                     * terdaftar didatabase realtime maka tidak akan ada respond apapun[m
+[32m+[m[32m                                     * solusinya adalah harus menyertakan kode wilayah kedalam body request[m
+[32m+[m[32m                                     */[m
+[32m+[m[32m                                })[m
+[32m+[m[32m                            }[m
+[32m+[m[32m                        })[m
+[32m+[m
+[32m+[m[32m                        // end database[m
+[32m+[m
+                     })[m
+[31m-                    [m
+[31m-                    var i;[m
+[31m-                    for(i = 0; i<kodewilayah.length; i++){[m
+[31m-                        const ref2 = db.ref(`/${kodewilayah[i]}/user/${uid}`)[m
+[31m-                        ref2.on("value", function(snapshot2){[m
+[31m-                            const value = snapshot2.val()[m
+[31m-                            console.log(kodewilayah);[m
+[31m-                            [m
+[31m-                            if(value != null){[m
+[32m+[m[32m                    .catch(function(error) {[m
+[32m+[m
+[32m+[m[32m                        console.log("Error get data", error);[m
+[32m+[m[32m                        res.send("User tidak ditemukan di authentication")[m
+[32m+[m
+[32m+[m[32m                    });[m
+[32m+[m[32m            } else {[m
+[32m+[m[32m                // Start listing users from the beginning, 1000 at a time.[m
+[32m+[m[32m                listAllUsers();[m
+[32m+[m[32m            }[m
+[32m+[m
+[32m+[m[32m            // end if email have email[m
+[32m+[m
+[32m+[m[32m        } else {[m
+[32m+[m
+[32m+[m
+[32m+[m[32m            // read[m
+[32m+[m[32m            if (email != undefined) {[m
+[32m+[m[32m                admin.auth().getUserByEmail(email)[m
+[32m+[m[32m                    .then(function(userRecord) {[m
+[32m+[m
+[32m+[m[32m                        // See the UserRecord reference doc for the contents of userRecord.[m
+[32m+[m
+[32m+[m[32m                        const uid = userRecord.uid[m
+[32m+[m[32m                        console.log("user uid:", uid);[m
+[32m+[m
+[32m+[m[32m                        // database[m
+[32m+[m[32m                        const db = admin.database()[m
+[32m+[m[32m                        const ref = db.ref(`/${kode_wilayah}/user/${uid}`)[m
+[32m+[m[32m                        ref.on("value", function(snapshot) {[m
+[32m+[m
+[32m+[m
+[32m+[m[32m                            const value = snapshot.val()[m
+[32m+[m[32m                            console.log(kode_wilayah);[m
+[32m+[m
+[32m+[m[32m                            if (value != null) {[m
+                                 res.send(value)[m
+                                 console.log(value);[m
+[32m+[m[32m                            } else {[m
+[32m+[m[32m                                res.send("data tidak ditemukan dalam database")[m
+[32m+[m[32m                                console.log("data tidak ditemukan dalam database");[m
+[32m+[m
+                             }[m
+ [m
+[31m-                            /** kode ini apabila di berikan else maka akan error[m
+[31m-                             * apabila tidak diberikan else maka apabila user tidak[m
+[31m-                             * terdaftar didatabase realtime maka tidak akan ada respond apapun[m
+[31m-                             * solusinya adalah harus menyertakan kode wilayah kedalam body request[m
+[31m-                             */[m
+[31m-                        })   [m
+[31m-                    }[m
+[31m-                })[m
+ [m
+[31m-                // end database[m
+[31m-            [m
+[31m-            })[m
+[31m-            .catch(function(error) {[m
+[31m-            [m
+[31m-                console.log("Error get data", error);[m
+[31m-                res.send("User tidak ditemukan di authentication")[m
+[31m-            [m
+[31m-            });[m
+[31m-        }else{    [m
+[31m-        // Start listing users from the beginning, 1000 at a time.[m
+[31m-        listAllUsers();[m
+[31m-        }[m
+ [m
+[31m-        // end if email have email[m
+[31m-[m
+[31m-    }else{[m
+[31m-        [m
+[31m-        [m
+[31m-        // read[m
+[31m-        if(email != undefined){[m
+[31m-            admin.auth().getUserByEmail(email)[m
+[31m-            .then(function(userRecord) {[m
+[31m-            [m
+[31m-                // See the UserRecord reference doc for the contents of userRecord.[m
+[31m-            [m
+[31m-                const uid = userRecord.uid[m
+[31m-                console.log("user uid:", uid);[m
+[31m-                [m
+[31m-                // database[m
+[31m-                const db = admin.database()[m
+[31m-                const ref = db.ref(`/${kode_wilayah}/user/${uid}`)[m
+[31m-                ref.on("value", function(snapshot){[m
+[31m-                    [m
+[31m-                    [m
+[31m-                    const value = snapshot.val()[m
+[31m-                    console.log(kode_wilayah);[m
+[31m-                    [m
+[31m-                    if(value != null){[m
+[31m-                        res.send(value)[m
+[31m-                        console.log(value);[m
+[31m-                    }else{[m
+[31m-                        res.send("data tidak ditemukan dalam database")[m
+[31m-                        console.log("data tidak ditemukan dalam database");[m
+[31m-                        [m
+[31m-                    }[m
+[32m+[m[32m                            // end database[m
+ [m
+[31m-                [m
+[32m+[m[32m                        })[m
+ [m
+[31m-                // end database[m
+[31m-            [m
+[31m-                })[m
+[32m+[m[32m                    })[m
+[32m+[m[32m                    .catch(function(error) {[m
+[32m+[m
+[32m+[m[32m                        console.log("Error get data", error);[m
+[32m+[m[32m                        res.send("User tidak ditemukan dalam authentication")[m
+[32m+[m
+[32m+[m[32m                    }); // end read[m
+[32m+[m[32m            } else {[m
+[32m+[m[32m                listAllUsers();[m
+[32m+[m[32m            }[m
+ [m
+[31m-            })    [m
+[31m-            .catch(function(error) {[m
+[31m-                [m
+[31m-                console.log("Error get data", error);[m
+[31m-                res.send("User tidak ditemukan dalam authentication")[m
+[31m-            [m
+[31m-            });    // end read[m
+[31m-        }else{[m
+[31m-            listAllUsers();[m
+         }[m
+[31m-        [m
+[31m-    }[m
+[31m-    // end if kode wilayah have a value[m
+[31m-})[m
+[31m-// end get user[m
+[32m+[m[32m        // end if kode wilayah have a value[m
+[32m+[m[32m    })[m
+[32m+[m[32m    // end get user[m
+[32m+[m
+[32m+[m[32mmodule.exports = app[m
+[32m+[m
+[32m+[m
+ [m
+[31m-module.exports = app[m
+\ No newline at end of file[m
+[32m+[m[32m//coba ini ada ga di presiensi[m
+\ No newline at end of file[m
