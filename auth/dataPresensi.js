@@ -59,7 +59,7 @@ app.get('/ditolak', (req, res) => {
 
 app.get('/diizinkan', (req, res) => {
     const kode_wilayah = req.body.kode_wilayah || '3202'
-    const email = req.body.email || 'adminSippt@email.com'
+    const email = req.body.email || 'adminSipp@email.com'
 
     admin.auth().getUserByEmail(email)
         .then((userRecord) => {
