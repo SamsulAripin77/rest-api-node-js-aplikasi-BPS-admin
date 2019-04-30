@@ -21,6 +21,11 @@ app.use(post)
 app.use(delet)
 app.use(listPegawai)
 
+app.get('/homealone', (req, res) => {
+    res.send('alone in home')
+    console.log('alone wae ah')
+})
+
 
 
 const serviceAccount = require("./sistempenggansipresensi-firebase-adminsdk-qryrr-23f42c2565.json");
@@ -29,7 +34,7 @@ admin.initializeApp({
     databaseURL: "https://sistempenggansipresensi.firebaseio.com"
 });
 
-const port = process.env.port || 5000
-app.listen(port, () => {
-    console.log('server berjalan di port ' + port)
+const PORT = process.env.PORT || 5000
+app.listen(PORT, () => {
+    console.log('server berjalan di port ' + PORT)
 })
