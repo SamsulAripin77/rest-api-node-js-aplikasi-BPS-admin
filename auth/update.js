@@ -33,7 +33,7 @@ app.put("/updateUser", (req, res) => {
     const photoURL = req.body.photoURL
     const disabled = req.body.disabled
     const nip_atasan = req.body.nip_atasan
-    const kodeWilayahAtasan = req.body.kodeWilayahAtasan
+    const KodeWilayahAtasan = req.body.KodeWilayahAtasan
 
     var deviceTokens = req.body.deviceTokens
     var imageUrl = ""
