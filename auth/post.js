@@ -46,6 +46,7 @@ app.post("/postUser", (req, res) => {
     const photoURL = req.body.photoURL
     const disabled = req.body.disabled
     const nip_atasan = req.body.nip_atasan
+    const KodeWilayahAtasan = req.body.KodeWilayahAtasan
         //=====================================================
     const deviceTokens = req.body.deviceTokens
     var imageUrl = ""
@@ -133,6 +134,7 @@ app.post("/postUser", (req, res) => {
                                         nip,
                                         password,
                                         uid,
+                                        KodeWilayahAtasan,
                                         // nip_atasan,
                                         // nama_atasan,
                                         uidAtasan
