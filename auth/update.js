@@ -106,8 +106,8 @@ app.put("/updateUser", (req, res) => {
                                                     nip,
                                                     password,
                                                     uid,
-                                                    nip_atasan,
-                                                    nama_atasan,
+                                                    // nip_atasan,
+                                                    // nama_atasan,
                                                     uidAtasan
                                                 })
                                                 .then(function(data) {
