@@ -33,6 +33,7 @@ app.put("/updateUser", (req, res) => {
     const photoURL = req.body.photoURL
     const disabled = req.body.disabled
     const nip_atasan = req.body.nip_atasan
+    const kodeWilayahAtasan = req.body.kodeWilayahAtasan
 
     var deviceTokens = req.body.deviceTokens
     var imageUrl = ""
@@ -106,6 +107,7 @@ app.put("/updateUser", (req, res) => {
                                                     nip,
                                                     password,
                                                     uid,
+                                                    kodeWilayahAtasan,
                                                     // nip_atasan,
                                                     // nama_atasan,
                                                     uidAtasan
@@ -114,7 +116,7 @@ app.put("/updateUser", (req, res) => {
                                                     console.log("update user di user berhasil");
 
                                                     ref1.set({
-                                                            nip,
+                                                            username,
                                                             password
                                                         })
                                                         .then(function(value) {
