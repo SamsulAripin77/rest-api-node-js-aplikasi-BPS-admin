@@ -126,7 +126,7 @@ app.put("/updateUser", (req, res) => {
                                                                 var newPost = snapshot.val()
                                                                 console.log(newPost.nama)
                                                                 res.send(newPost.nama)
-                                                                res.redirect
+                                                                    // res.redirect
                                                             })
 
                                                             res.send("update berhasil")
