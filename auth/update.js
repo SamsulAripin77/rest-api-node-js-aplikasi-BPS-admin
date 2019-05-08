@@ -130,6 +130,7 @@ app.put("/updateUser", (req, res) => {
                                                                 console.log('data di atasa adal data yang baru saja berhasil diedit')
                                                                 console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++')
                                                                 res.send(newPost)
+                                                                ref.off('value')
                                                                     // res.redirect
                                                             })
                                                             res.send("update berhasil")
