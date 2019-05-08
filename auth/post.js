@@ -37,6 +37,9 @@ app.post("/postUser", (req, res) => {
       disabled = req.body.disabled
 
      */
+    //devToken,edt_jabatan.Text,memo_jabatan_lengkap.Text,
+    //kodeWilayah,edt_nama.Text,email,edt_pass.Text,nip_atasan,
+    //edt_KodeWilayahAtasan.Text),TRESTContentType.ctAPPLICATION_JSON);
 
     const email = req.body.email
     const emailVerified = req.body.emailVerified
@@ -190,7 +193,7 @@ app.post("/postUser", (req, res) => {
                     }
                 })
 
-
+                0
             } else {
                 console.log('nip atasan tidak ditemukan')
                 res.status(400)

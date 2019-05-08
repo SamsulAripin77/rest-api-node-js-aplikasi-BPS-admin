@@ -5,6 +5,7 @@ const get = require('./auth/get.js')
 const update = require('./auth/update.js')
 const post = require('./auth/post.js')
 const delet = require('./auth/delete.js')
+const newUserAdded = require('./auth/newUserAdded.js')
 const listPegawai = require('./auth/listPegawai.js')
 const diizinkan = require('./auth/dataPresensi')
 const bodyParser = require('body-parser')
@@ -14,6 +15,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+app.use(newUserAdded)
 app.use(diizinkan)
 app.use(get)
 app.use(update)
