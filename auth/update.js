@@ -42,6 +42,7 @@ app.put("/updateUser", (req, res) => {
     var kodeWilayah = req.body.kodeWilayah
     var nama = req.body.nama
     var nip = email.substring(0, email.indexOf("@"));
+    var username = nip
 
     const cekAtasan = admin.database().ref(`/${kodeWilayah}/user/`).orderByChild("nip").equalTo(nip_atasan).once('value', function(snapshot) {
             if (snapshot.exists()) {
