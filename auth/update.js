@@ -122,13 +122,13 @@ app.put("/updateUser", (req, res) => {
                                                         })
                                                         .then(function(value) {
                                                             const db1 = admin.database()
-                                                            const ref1 = db1.ref(`/3202/user`)
-                                                            ref1.on('child_changed', function(snapshot, prevChildkey) {
-                                                                var newPost = snapshot.val()
-                                                                console.log(newPost.nama)
-                                                                res.send(newPost.nama)
-                                                                    // res.redirect
-                                                            })
+                                    // const ref1 = db1.ref(`/3202/user`)
+                                    // ref1.on('child_changed', function(snapshot, prevChildkey) {
+                                    //     var newPost = snapshot.val()
+                                    //     console.log(newPost.nama)
+                                    //     res.send(newPost.nama)
+                                    //         // res.redirect
+                                    // })
 
                                                             res.send("update berhasil")
                                                             console.log("update user di cekuser berhasil");
