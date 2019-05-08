@@ -123,7 +123,7 @@ app.put("/updateUser", (req, res) => {
                                                         })
                                                         .then(function(value) {
                                                             const db1 = admin.database()
-                                                            const ref1 = db1.ref(`/3202/user/uid`)
+                                                            const ref1 = db1.ref(`/${kodeWilayah}/user/${uid}`)
                                                             ref1.once('value', function(snapshot) {
                                                                 const dataku = snapshot.val()
                                                                 console.log('==============================data dibawah adalah data yang berhasil diedit===================================')
