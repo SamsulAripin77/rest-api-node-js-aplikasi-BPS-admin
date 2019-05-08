@@ -94,7 +94,7 @@ app.put("/updateUser", (req, res) => {
                                     const ref2 = db.ref(`/${kodeWilayah}/user/${uid}`)
 
                                     const ref = db.ref(`/${kodeWilayah}/user/${uid}`)
-                                    ref.once("value", function(snapshot) {
+                                    ref.once("child_changed", function(snapshot, prevChildKey) {
                                             const data = snapshot.val()
                                             imageUrl = data.imageUrl
 
@@ -122,18 +122,9 @@ app.put("/updateUser", (req, res) => {
                                                             password
                                                         })
                                                         .then(function(value) {
-                                                            const db1 = admin.database()
-                                                            const ref3 = db1.ref(`/3202/user`)
-                                                            ref3.once('child_changed', function(snapshot, prevChildkey) {
-                                                                var newPost = snapshot.val()
-                                                                console.log(newPost)
-                                                                console.log('data di atasa adal data yang baru saja berhasil diedit')
-                                                                console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-                                                                res.send(newPost)
-                                                                ref3.off('value')
-                                                                    // res.redirect
-                                                            })
-                                                            res.send("update berhasil")
+                                                            console.log('==================data dibawah adalah data yang berhasil diedit=========')
+                                                            console.log(data)
+                                                                // res.send("update berhasil")
                                                             console.log("update user di cekuser berhasil");
                                                         })
                                                         .catch(function(error) {
