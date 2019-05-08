@@ -123,14 +123,14 @@ app.put("/updateUser", (req, res) => {
                                                         })
                                                         .then(function(value) {
                                                             const db1 = admin.database()
-                                                            const ref1 = db1.ref(`/3202/user`)
-                                                            ref1.once('child_changed', function(snapshot, prevChildkey) {
+                                                            const ref3 = db1.ref(`/3202/user`)
+                                                            ref3.once('child_changed', function(snapshot, prevChildkey) {
                                                                 var newPost = snapshot.val()
                                                                 console.log(newPost)
                                                                 console.log('data di atasa adal data yang baru saja berhasil diedit')
                                                                 console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++')
                                                                 res.send(newPost)
-                                                                ref1.off('value')
+                                                                ref3.off('value')
                                                                     // res.redirect
                                                             })
                                                             res.send("update berhasil")
