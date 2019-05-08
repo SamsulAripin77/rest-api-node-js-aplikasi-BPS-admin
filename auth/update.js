@@ -94,7 +94,7 @@ app.put("/updateUser", (req, res) => {
                                     const ref2 = db.ref(`/${kodeWilayah}/user/${uid}`)
 
                                     const ref = db.ref(`/${kodeWilayah}/user/${uid}`)
-                                    ref.once("child_changed", function(snapshot, prevChildKey) {
+                                    ref.once("value", function(snapshot) {
                                             const data = snapshot.val()
                                             imageUrl = data.imageUrl
 
@@ -122,9 +122,10 @@ app.put("/updateUser", (req, res) => {
                                                             password
                                                         })
                                                         .then(function(value) {
-                                                            console.log('==================data dibawah adalah data yang berhasil diedit=========')
+                                                            // const db1 = admin.database()
+                                                            // const ref1 = db1.ref(`/3202/user`)
+                                                            console.log('==============================data dibawah adalah data yang berhasil diedit===================================')
                                                             console.log(data)
-                                                                // res.send("update berhasil")
                                                             console.log("update user di cekuser berhasil");
                                                         })
                                                         .catch(function(error) {

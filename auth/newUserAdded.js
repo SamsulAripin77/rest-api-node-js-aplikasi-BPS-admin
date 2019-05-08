@@ -32,6 +32,17 @@ app.get('/getDeleteUser', (req, res) => {
 
 })
 
+
+app.get('/currentUserUpdate', (req, res) => {
+    const dba = admin.database()
+    const reff = dba.ref('/3202/user/27TdjYw17yWNh9Tc0S5Zh811XUG2')
+    reff.once('value', (snapshot) => {
+        const data = snapshot.val()
+        console.log(data)
+        res.send(data)
+    })
+})
+
 app.get('/getUpdateUser', (req, res) => {
     const kodeWilayah = req.body.kodeWilayah;
     const db = admin.database()
@@ -42,6 +53,8 @@ app.get('/getUpdateUser', (req, res) => {
         res.send(newPost)
     })
 })
+
+
 
 
 
