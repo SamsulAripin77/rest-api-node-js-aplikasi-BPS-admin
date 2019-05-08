@@ -95,8 +95,8 @@ app.put("/updateUser", (req, res) => {
 
                                     const ref = db.ref(`/${kodeWilayah}/user/${uid}`)
                                     ref.once("value", function(snapshot) {
-                                            const data = snapshot.val()
-                                            imageUrl = data.imageUrl
+                                            const data1 = snapshot.val()
+                                            imageUrl = data1.imageUrl
 
                                             // add user ke user
                                             ref2.set({
@@ -125,7 +125,7 @@ app.put("/updateUser", (req, res) => {
                                                             // const db1 = admin.database()
                                                             // const ref1 = db1.ref(`/3202/user`)
                                                             console.log('==============================data dibawah adalah data yang berhasil diedit===================================')
-                                                            console.log(data)
+                                                            console.log(data1)
                                                             console.log("update user di cekuser berhasil");
                                                         })
                                                         .catch(function(error) {
