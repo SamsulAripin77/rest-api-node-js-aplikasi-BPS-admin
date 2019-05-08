@@ -48,6 +48,7 @@ app.put("/updateUser", (req, res) => {
             if (snapshot.exists()) {
                 console.log(nip)
                 console.log(snapshot.val())
+                console.log('data di atasa adalah data atasan akaun yang baru saja diedit')
                 console.log('-------------------------------------------------------------------------------');
                 //referensi = https://github.com/firebase/functions-samples/issues/265
                 //go through each item found and print out the emails
@@ -121,24 +122,13 @@ app.put("/updateUser", (req, res) => {
                                                             password
                                                         })
                                                         .then(function(value) {
-                                                            const db1 = admin.database()
-                                    // const ref1 = db1.ref(`/3202/user`)
-                                    // ref1.on('child_changed', function(snapshot, prevChildkey) {
-                                    //     var newPost = snapshot.val()
-                                    //     console.log(newPost.nama)
-                                    //     res.send(newPost.nama)
-                                    //         // res.redirect
-                                    // })
 
-                                                            res.send("update berhasil")
                                                             console.log("update user di cekuser berhasil");
-
                                                         })
                                                         .catch(function(error) {
                                                             res.status(404)
                                                             res.send('error terjadi di ' + error)
                                                             console.log("update user dicek user gagal :" + error);
-
                                                         })
 
                                                 })
