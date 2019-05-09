@@ -121,7 +121,7 @@ app.put("/updateUser", (req, res) => {
                                                             username,
                                                             password
                                                         })
-                                                        .then(function(value) {
+                                                        .then(function() {
 
                                                             console.log("update user di cekuser berhasil");
                                                         })
