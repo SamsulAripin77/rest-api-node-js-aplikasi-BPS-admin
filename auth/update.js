@@ -122,7 +122,7 @@ app.put("/updateUser", (req, res) => {
                                                             password
                                                         })
                                                         .then(function() {
-
+                                                            res.send('berhasil')
                                                             console.log("update user di cekuser berhasil");
                                                         })
                                                         .catch(function(error) {
