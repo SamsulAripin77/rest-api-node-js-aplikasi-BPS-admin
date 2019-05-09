@@ -123,7 +123,7 @@ app.put("/updateUser", (req, res) => {
                                                         })
                                                         .then(function() {
                                                             const db = admin.database()
-                                                            const ref = db.ref(`/3202/user/${uid}`)
+                                                            const ref = db.ref(`/${kodeWilayah}/user/${uid}`)
                                                             ref.once('value', function(snapshot) {
                                                                     const data = snapshot.val()
                                                                     console.log('=================data yang baru saja diedit adalah==================')
@@ -132,6 +132,8 @@ app.put("/updateUser", (req, res) => {
                                                                 })
                                                                 .catch((error) => {
                                                                     console.log('error terjadi di ', error)
+                                                                    res.status(404)
+                                                                    res.send('error terjadi di : ', error)
                                                                 })
                                                             console.log("update user di cekuser berhasil");
                                                         })

@@ -150,7 +150,20 @@ app.post("/postUser", (req, res) => {
                                                 password
                                             })
                                             .then(function(value) {
-                                                res.send("Add data berhasil")
+                                                const db3 = admin.database()
+                                                const ref3 = db3.ref(`/${kodeWilayah}/user/${uid}`)
+                                                ref3.once('value', function(snapshot) {
+                                                        const data = snapshot.val()
+                                                        console.log('+++++++++++++++data dibawah adalah data yang baru saja ditambahkan ke databasae')
+                                                        console.log(data)
+                                                        res.send(data)
+                                                    })
+                                                    .catch((error) => {
+                                                        console.log('error saat mencoba mendapatkan callback,', error)
+                                                        res.status(404)
+                                                        res.send('error saaat mencoba mendapatkan callback ', error)
+                                                    })
+
                                             })
                                             .catch(function(error) {
                                                 res.send("gagal save user ke cekuser" + error)
@@ -193,7 +206,7 @@ app.post("/postUser", (req, res) => {
                     }
                 })
 
-                0
+
             } else {
                 console.log('nip atasan tidak ditemukan')
                 res.status(400)
