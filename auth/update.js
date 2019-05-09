@@ -132,20 +132,20 @@ app.put("/updateUser", (req, res) => {
                                                                 })
                                                                 .catch((error) => {
                                                                     console.log('error terjadi di ', error)
-                                                                    res.status(404)
+                                                                    res.status(405)
                                                                     res.send('error terjadi di : ', error)
                                                                 })
                                                             console.log("update user di cekuser berhasil");
                                                         })
                                                         .catch(function(error) {
-                                                            res.status(404)
+                                                            res.status(405)
                                                             res.send('error terjadi di ' + error)
                                                             console.log("update user dicek user gagal :" + error);
                                                         })
 
                                                 })
                                                 .catch(function(error) {
-                                                    res.status(404)
+                                                    res.status(405)
                                                     res.send('error terjadi di ' + error)
                                                     console.log("update user di user gagal :" + error);
 
@@ -156,7 +156,7 @@ app.put("/updateUser", (req, res) => {
                                 })
                                 .catch(function(error) {
                                     console.log("Error updating user:", error);
-                                    res.status(404)
+                                    res.status(405)
                                     res.send('error terjadi di ' + error)
                                 });
                             // end database
@@ -164,9 +164,7 @@ app.put("/updateUser", (req, res) => {
 
                         })
                         .catch(function(error) {
-
-                            res.status(400).send(error)
-                            res.status(404)
+                            res.status(405)
                             res.send('error terjadi di ' + error)
                         });
                 });
