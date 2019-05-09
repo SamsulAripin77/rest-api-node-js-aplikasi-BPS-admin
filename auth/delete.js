@@ -30,14 +30,14 @@ app.delete('/deleteUser', (req, res) => {
             }
 
             function deleteBoth() {
-                deleteUser();
-                deleteCekUser();
                 getUidAfterDelete();
                 console.log('berhaisl meghapus data di kedua node')
                     // res.send('berhasil menghapus data dikedua node')
             }
 
             function getUidAfterDelete() {
+                deleteUser();
+                deleteCekUser();
                 const db = admin.database()
                 const ref = db.ref(`/${kode_wilayah}/user`)
                 ref.once('child_removed', function(snapshot) {
