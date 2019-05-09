@@ -32,8 +32,9 @@ app.delete('/deleteUser', (req, res) => {
             function deleteBoth() {
                 deleteUser();
                 deleteCekUser();
+                getUidAfterDelete();
                 console.log('berhaisl meghapus data di kedua node')
-                res.send('berhasil menghapus data dikedua node')
+                    // res.send('berhasil menghapus data dikedua node')
             }
 
             function getUidAfterDelete() {
