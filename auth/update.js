@@ -122,7 +122,17 @@ app.put("/updateUser", (req, res) => {
                                                             password
                                                         })
                                                         .then(function() {
-                                                            res.send('berhasil')
+                                                            const db = admin.database()
+                                                            const ref = db.ref(`/3202/user/${uid}`)
+                                                            ref.once('value', function(snapshot) {
+                                                                    const data = snapshot.val()
+                                                                    console.log('=================data yang baru saja diedit adalah==================')
+                                                                    console.log(data)
+                                                                    res.send(data)
+                                                                })
+                                                                .catch((error) => {
+                                                                    console.log('error terjadi di ', error)
+                                                                })
                                                             console.log("update user di cekuser berhasil");
                                                         })
                                                         .catch(function(error) {
