@@ -41,7 +41,7 @@ app.post("/postUser", (req, res) => {
     //kodeWilayah,edt_nama.Text,email,edt_pass.Text,nip_atasan,
     //edt_KodeWilayahAtasan.Text),TRESTContentType.ctAPPLICATION_JSON);
 
-    const email = req.body.email
+    const email = req.body.email || '123456@email.com'
     const emailVerified = req.body.emailVerified
     const phoneNumber = req.body.phoneNumber
     const password = req.body.password
