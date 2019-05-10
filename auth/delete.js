@@ -21,9 +21,10 @@ app.delete('/deleteUser', (req, res) => {
                 const ref1 = db.ref(`/${kode_wilayah}/user/${uid}`)
                 ref1.remove()
                 console.log('data yang dihapus', uid)
+
                 const uuid = []
-                uuid.push(`"uid": + uid`);
-                res.send(uuid)
+                uuid.push(`uid`);
+                res.send('"uid:"' + uid)
             }
 
             function deleteCekUser() {
