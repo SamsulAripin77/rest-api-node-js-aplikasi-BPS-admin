@@ -49,10 +49,10 @@ app.put("/updateUser", (req, res) => {
 
     var deviceTokens = req.body.deviceTokens || 'dfjkldsfjskldfkdlsf'
     var imageUrl = ""
-    var jabatan = req.body.jabatan
-    var jabatanLengkap = req.body.jabatanLengkap
+    var jabatan = req.body.jabatan || 'SSS'
+    var jabatanLengkap = req.body.jabatanLengkap || 'SSS'
     var kodeWilayah = req.body.kodeWilayah || '3202'
-    var nama = req.body.nama
+    var nama = req.body.nama || 'nama nama ok'
     var nip = email.substring(0, email.indexOf("@"));
     var username = nip
 
