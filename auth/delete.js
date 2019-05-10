@@ -23,7 +23,7 @@ app.delete('/deleteUser', (req, res) => {
                 console.log('data yang dihapus', uid)
                 const uuid = []
                 uuid.push(uid)
-                res.send.JSON.stringify(uuid)
+                res.send(uuid)
             }
 
             function deleteCekUser() {
