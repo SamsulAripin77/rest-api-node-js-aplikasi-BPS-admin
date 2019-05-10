@@ -24,7 +24,7 @@ app.delete('/deleteUser', (req, res) => {
 
                 const uuid = []
                 uuid.push(`uid`);
-                res.send('"uid:"' + uid)
+                res.send('{' + '"uid:"' + '"' + uid + '"' + '}') // bikin json manual
             }
 
             function deleteCekUser() {
