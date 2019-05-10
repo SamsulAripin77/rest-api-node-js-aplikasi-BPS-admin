@@ -40,7 +40,7 @@ app.delete('/deleteUser', (req, res) => {
                 deleteCekUser();
                 const db = admin.database()
                 const ref = db.ref(`/${kode_wilayah}/user`)
-                ref.once('child_removed', function(snapshot) {
+                ref.on('child_removed', function(snapshot) {
                     const data = snapshot.val()
                     console.log('=============data dibawah adalah uid yang berhail dihapus')
                     console.log(data.uid)
