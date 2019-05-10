@@ -46,6 +46,7 @@ app.delete('/deleteUser', (req, res) => {
                     console.log(data.uid)
                     res.send(data.uid)
                 })
+                ref.off('value');
             }
 
             deleteBoth()
