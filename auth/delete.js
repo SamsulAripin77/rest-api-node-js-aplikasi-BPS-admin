@@ -21,6 +21,7 @@ app.delete('/deleteUser', (req, res) => {
                 const ref1 = db.ref(`/${kode_wilayah}/user/${uid}`)
                 ref1.remove()
                 console.log('data yang dihapus', uid)
+                res.send(uid)
             }
 
             function deleteCekUser() {
@@ -36,25 +37,6 @@ app.delete('/deleteUser', (req, res) => {
                 console.log('berhaisl meghapus data di kedua node')
                     // res.send('berhasil menghapus data dikedua node')
             }
-
-            function getUidAfterDelete() {
-
-                const db = admin.database()
-                const ref = db.ref(`/${kode_wilayah}/user`)
-                ref.once('child_removed', function(snapshot) {
-
-                        const data = snapshot.val()
-                        console.log('=============data dibawah adalah uid yang berhail dihapus')
-                        console.log(data.uid)
-                        res.send(data.uid)
-                    })
-                    .catch((error) => {
-                        console.log('eror terjadi saat mendapatkan data yang dihapus : ', error);
-                        res.status(405)
-                        res.send('gagal boy')
-                    })
-            }
-            getUidAfterDelete();
             deleteBoth()
 
         })
