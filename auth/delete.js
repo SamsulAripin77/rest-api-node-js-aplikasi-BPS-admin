@@ -30,7 +30,9 @@ app.delete('/deleteUser', (req, res) => {
             }
 
             function deleteBoth() {
-                getUidAfterDelete();
+
+                deleteUser();
+                deleteCekUser();
                 console.log('berhaisl meghapus data di kedua node')
                     // res.send('berhasil menghapus data dikedua node')
             }
@@ -40,8 +42,7 @@ app.delete('/deleteUser', (req, res) => {
                 const db = admin.database()
                 const ref = db.ref(`/${kode_wilayah}/user`)
                 ref.on('child_removed', function(snapshot) {
-                    deleteUser();
-                    deleteCekUser();
+
                     const data = snapshot.val()
                     console.log('=============data dibawah adalah uid yang berhail dihapus')
                     console.log(data.uid)
@@ -49,7 +50,7 @@ app.delete('/deleteUser', (req, res) => {
                 })
                 ref.off('value');
             }
-
+            getUidAfterDelete();
             deleteBoth()
 
         })
