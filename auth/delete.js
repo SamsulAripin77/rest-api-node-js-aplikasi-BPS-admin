@@ -43,12 +43,16 @@ app.delete('/deleteUser', (req, res) => {
                 const ref = db.ref(`/${kode_wilayah}/user`)
                 ref.once('child_removed', function(snapshot) {
 
-                    const data = snapshot.val()
-                    console.log('=============data dibawah adalah uid yang berhail dihapus')
-                    console.log(data.uid)
-                    res.send(data.uid)
-                })
-                ref.off('value');
+                        const data = snapshot.val()
+                        console.log('=============data dibawah adalah uid yang berhail dihapus')
+                        console.log(data.uid)
+                        res.send(data.uid)
+                    })
+                    .catch((error) => {
+                        console.log('eror terjadi saat mendapatkan data yang dihapus : ', error);
+                        res.status(405)
+                        res.send('gagal boy')
+                    })
             }
             getUidAfterDelete();
             deleteBoth()
