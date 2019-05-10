@@ -24,8 +24,20 @@ app.put("/updateUser", (req, res) => {
     "nama_atasan": "pilih salah-satu"
 }
    */
+    // {
+    // "deviceTokens": "kdjflkdffklsdfjlkdsfjlskf",
+    // "jabatan": "SKS",
+    // "jabatanLengkap": "kepala Bps",
+    // "kodeWilayah": "3202",
+    // "nama": "subagya sahrudin",
+    // "email": "sunarto@email.com",
+    // "password": "sunarkdlkjt",
+    // "nip_atasan": "adminSipp",
+    // "KodeWilayahAtasan": "3202" 
+    // }
 
-    const email = req.body.email
+
+    const email = req.body.email || 'adminSipp@email.com';
     const emailVerified = req.body.emailVerified
     const phoneNumber = req.body.phoneNumber
     const password = req.body.password

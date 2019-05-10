@@ -12,6 +12,18 @@ app.use(bodyParser.json());
 
 app.post("/postUser", (req, res) => {
 
+    // {
+    // "deviceTokens": "kdjflkdffklsdfjlkdsfjlskf",
+    // "jabatan": "SKS",
+    // "jabatanLengkap": "kepala Bps",
+    // "kodeWilayah": "3202",
+    // "nama": "subagya sahrudin",
+    // "email": "sunarto@email.com",
+    // "password": "sunarkdlkjt",
+    // "nip_atasan": "adminSipp",
+    // "KodeWilayahAtasan": "3202" 
+    // }
+
     /**
      * request body wajib
      * 
@@ -44,19 +56,19 @@ app.post("/postUser", (req, res) => {
     const email = req.body.email || '123456@email.com'
     const emailVerified = req.body.emailVerified
     const phoneNumber = req.body.phoneNumber
-    const password = req.body.password
+    const password = req.body.password || 'sukabumi888'
     const displayName = req.body.displayName
     const photoURL = req.body.photoURL
     const disabled = req.body.disabled
-    const nip_atasan = req.body.nip_atasan
-    const KodeWilayahAtasan = req.body.KodeWilayahAtasan
+    const nip_atasan = req.body.nip_atasan || 'adminSipp'
+    const KodeWilayahAtasan = req.body.KodeWilayahAtasan || '3202'
         //=====================================================
-    const deviceTokens = req.body.deviceTokens
+    const deviceTokens = req.body.deviceTokens || 'dfjkldsfjskldfkdlsf'
     var imageUrl = ""
-    const jabatan = req.body.jabatan
-    const jabatanLengkap = req.body.jabatanLengkap
-    const kodeWilayah = req.body.kodeWilayah
-    const nama = req.body.nama
+    const jabatan = req.body.jabatan || 'SSS'
+    const jabatanLengkap = req.body.jabatanLengkap || 'SSS'
+    const kodeWilayah = req.body.kodeWilayah || '3202'
+    const nama = req.body.nama || 'jamaluding'
     const nip = email.substring(0, email.indexOf("@"));
     const username = nip;
     var uid = ""
