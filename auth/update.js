@@ -37,7 +37,7 @@ app.put("/updateUser", (req, res) => {
     // }
 
 
-    const email = req.body.email || '123456@email.com'
+    const email = req.body.email || '3847893247894@email.com'
     const emailVerified = req.body.emailVerified
     const phoneNumber = req.body.phoneNumber
     const password = req.body.password || 'sukabumi888'
