@@ -8,8 +8,8 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.delete('/deleteUser', (req, res) => {
-    const email = req.body.email
-    const kode_wilayah = req.body.kode_wilayah
+    const email = req.body.email || '83497289347@email.com'
+    const kode_wilayah = req.body.kode_wilayah || '3202'
     const db = admin.database()
     const nip = email.substring(0, email.indexOf("@"));
 
