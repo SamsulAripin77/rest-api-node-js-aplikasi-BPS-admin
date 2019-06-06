@@ -280,7 +280,10 @@ const cekKodeWilayah = admin
                 })
             }
             else {
-
+                console.log('Kode Wilayah tidak ditemukan')
+                res.status(446)
+                res.json(JsonError)
+                // res.send('error terjadi di ' + error)
             }
     })
         
