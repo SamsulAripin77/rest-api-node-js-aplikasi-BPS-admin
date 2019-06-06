@@ -231,8 +231,8 @@ app.post("/postUser", (req, res) => {
                                 PostToFirebase()
                             }
                             else {
-                                console.log('nip atasan tidak ditemukan')
-                                res.status(444)
+                                console.log('Kode Wilayah atasan tidak ditemukan')
+                                res.status(445)
                                 res.json({
                                     KodeWilayahAtasan: "error",
                                     deviceTokens: "error",
