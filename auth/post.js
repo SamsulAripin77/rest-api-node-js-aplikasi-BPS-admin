@@ -75,11 +75,7 @@ app.post("/postUser", (req, res) => {
         //=====================================================
     let kode = kodeWilayah
         // const name = 'juhdi rosadi'
-    const cekAtasan = admin.database().ref(`/${kode}/user/`).orderByChild("nip").equalTo(nip_atasan).once('value', function(snapshot) {
-            if (snapshot.exists()) {
-                console.log(nip)
-                console.log(snapshot.val())
-                console.log('-------------------------------------------------------------------------------');
+            function PostToFirebase () {
                 //referensi = https://github.com/firebase/functions-samples/issues/265
                 //go through each item found and print out the emails
                 snapshot.forEach(function(childSnapshot) {
@@ -217,13 +213,66 @@ app.post("/postUser", (req, res) => {
                         // end create user
                     }
                 })
+            }
 
-
-            } else {
-                console.log('nip atasan tidak ditemukan')
-                res.status(444)
-                res.json(
-                    {
+        const cekNipAtasan = admin.database()
+                .ref(`/${kode}/user/`)
+                .orderByChild("nip")
+                .equalTo(nip_atasan)
+                .once('value', function (snapshot) {
+                    if (snapshot.exists()) {
+                        console.log(nip)
+                        console.log(snapshot.val())
+                        console.log(
+                            '-------------------------------------------------------------------------------'  
+                        );
+                        const cekKodeWilayahAtasan = admin.database().ref(`/${kode}/user/`).orderByChild("KodeWilayahAtasan").equalTo(KodeWilayahAtasan).once('value', function (snapshot){
+                            if (snapshot.exists()){
+                                PostToFirebase()
+                            }
+                            else {
+                                console.log('nip atasan tidak ditemukan')
+                                res.status(444)
+                                res.json({
+                                    KodeWilayahAtasan: "error",
+                                    deviceTokens: "error",
+                                    imageUrl: "error",
+                                    jabatan: "error",
+                                    jabatanLengkap: "error",
+                                    KodeWilayah: "error",
+                                    nama: "error",
+                                    nip: "error",
+                                    password: "error",
+                                    uid: "error",
+                                    uidAtasan: "error"
+                                })
+                            }
+                        })
+                    } else {
+                        console.log('nip atasan tidak ditemukan')
+                        res.status(444)
+                        res.json({
+                            KodeWilayahAtasan: "error",
+                            deviceTokens: "error",
+                            imageUrl: "error",
+                            jabatan: "error",
+                            jabatanLengkap: "error",
+                            KodeWilayah: "error",
+                            nama: "error",
+                            nip: "error",
+                            password: "error",
+                            uid: "error",
+                            uidAtasan: "error"
+                        })
+                        // res.send('error terjadi di ' + error)
+                    }
+                })
+                .catch((error) => {
+                    console
+                        .log
+                        .json("eror di pencarian uid atasan")
+                    res.status(404)
+                    res.json({
                         KodeWilayahAtasan: "error",
                         deviceTokens: "error",
                         imageUrl: "error",
@@ -235,31 +284,10 @@ app.post("/postUser", (req, res) => {
                         password: "error",
                         uid: "error",
                         uidAtasan: "error"
-                       }
-                )
-                // res.send('error terjadi di ' + error)
-            }
-        })
-        .catch((error) => {
-            console.log.json("eror di pencarian uid atasan")
-            res.status(404)
-            res.json(
-                {
-                    KodeWilayahAtasan: "error",
-                    deviceTokens: "error",
-                    imageUrl: "error",
-                    jabatan: "error",
-                    jabatanLengkap: "error",
-                    KodeWilayah: "error",
-                    nama: "error",
-                    nip: "error",
-                    password: "error",
-                    uid: "error",
-                    uidAtasan: "error"
-                   }
-            )
-        })
-})
+                    })
+                })
+        }
+        )
 
 // end add user
 
