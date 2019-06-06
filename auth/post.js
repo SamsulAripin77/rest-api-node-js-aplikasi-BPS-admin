@@ -222,14 +222,28 @@ app.post("/postUser", (req, res) => {
             } else {
                 console.log('nip atasan tidak ditemukan')
                 res.status(444)
-                res.send('{Message: "error"');
+                res.json(
+                    {
+                        KodeWilayahAtasan: "error",
+                        deviceTokens: "error",
+                        imageUrl: "error",
+                        jabatan: "error",
+                        jabatanLengkap: "error",
+                        KodeWilayah: "error",
+                        nama: "error",
+                        nip: "error",
+                        password: "error",
+                        uid: "error",
+                        uidAtasan: "error"
+                       }
+                )
                 // res.send('error terjadi di ' + error)
             }
         })
         .catch((error) => {
-            console.log("eror di pencarian uid atasan")
+            console.log.json("eror di pencarian uid atasan")
             res.status(404)
-            res.send.json(
+            res.json(
                 {
                     KodeWilayahAtasan: "error",
                     deviceTokens: "error",
