@@ -215,7 +215,30 @@ app.post("/postUser", (req, res) => {
                 })
             }
 
-        const cekNipAtasan = admin.database()
+const cekKodeWilayah = admin
+    .database()
+    .ref('/')
+    .orderByKey()
+    .equalTo(kodeWilayah)
+    .once('value', function (snapshot) {
+        const JsonError = [
+            {
+                KodeWilayahAtasan: "error",
+                deviceTokens: "error",
+                imageUrl: "error",
+                jabatan: "error",
+                jabatanLengkap: "error",
+                KodeWilayah: "error",
+                nama: "error",
+                nip: "error",
+                password: "error",
+                uid: "error",
+                uidAtasan: "error"
+            }
+        ]
+        if (snapshot.exists()) {
+            const cekNipAtasan = admin
+                .database()
                 .ref(`/${kode}/user/`)
                 .orderByChild("nip")
                 .equalTo(nip_atasan)
@@ -224,46 +247,27 @@ app.post("/postUser", (req, res) => {
                         console.log(nip)
                         console.log(snapshot.val())
                         console.log(
-                            '-------------------------------------------------------------------------------'  
+                            '------------------------------------------------------------------------------' +
+                            '-'
                         );
-                        const cekKodeWilayahAtasan = admin.database().ref(`/${kode}/user/`).orderByChild("KodeWilayahAtasan").equalTo(KodeWilayahAtasan).once('value', function (snapshot){
-                            if (snapshot.exists()){
-                                PostToFirebase()
-                            }
-                            else {
-                                console.log('Kode Wilayah atasan tidak ditemukan')
-                                res.status(445)
-                                res.json({
-                                    KodeWilayahAtasan: "error",
-                                    deviceTokens: "error",
-                                    imageUrl: "error",
-                                    jabatan: "error",
-                                    jabatanLengkap: "error",
-                                    KodeWilayah: "error",
-                                    nama: "error",
-                                    nip: "error",
-                                    password: "error",
-                                    uid: "error",
-                                    uidAtasan: "error"
-                                })
-                            }
-                        })
+                        const cekKodeWilayahAtasan = admin
+                            .database()
+                            .ref(`/${kode}/user/`)
+                            .orderByChild("KodeWilayahAtasan")
+                            .equalTo(KodeWilayahAtasan)
+                            .once('value', function (snapshot) {
+                                if (snapshot.exists()) {
+                                    PostToFirebase()
+                                } else {
+                                    console.log('Kode Wilayah atasan tidak ditemukan')
+                                    res.status(445)
+                                    res.json(JsonError)
+                                }
+                            })
                     } else {
                         console.log('nip atasan tidak ditemukan')
                         res.status(444)
-                        res.json({
-                            KodeWilayahAtasan: "error",
-                            deviceTokens: "error",
-                            imageUrl: "error",
-                            jabatan: "error",
-                            jabatanLengkap: "error",
-                            KodeWilayah: "error",
-                            nama: "error",
-                            nip: "error",
-                            password: "error",
-                            uid: "error",
-                            uidAtasan: "error"
-                        })
+                        res.json(JsonError)
                         // res.send('error terjadi di ' + error)
                     }
                 })
@@ -272,20 +276,14 @@ app.post("/postUser", (req, res) => {
                         .log
                         .json("eror di pencarian uid atasan")
                     res.status(404)
-                    res.json({
-                        KodeWilayahAtasan: "error",
-                        deviceTokens: "error",
-                        imageUrl: "error",
-                        jabatan: "error",
-                        jabatanLengkap: "error",
-                        KodeWilayah: "error",
-                        nama: "error",
-                        nip: "error",
-                        password: "error",
-                        uid: "error",
-                        uidAtasan: "error"
-                    })
+                    res.json(JsonError)
                 })
+            }
+            else {
+
+            }
+    })
+        
         }
         )
 
