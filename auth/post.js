@@ -209,7 +209,7 @@ const cekKodeWilayah = admin
                                                         const data = snapshot.val()
                                                         console.log('+++++++++++++++data dibawah adalah data yang baru saja ditambahkan ke databasae')
                                                         console.log(data)
-                                                        res.send(data)
+                                                        //res.send(data)
                                                     })
                                                     .catch((error) => {
                                                         console.log('error saat mencoba mendapatkan callback,', error)
