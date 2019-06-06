@@ -119,11 +119,11 @@ const cekKodeWilayah = admin
                             .ref(`/${kode}/user/`)
                             .orderByChild("KodeWilayahAtasan")
                             .equalTo(KodeWilayahAtasan)
-                            .once('value', function (snapshot) {
-                                if (snapshot.exists()) {
-                                    //referensi = https://github.com/firebase/functions-samples/issues/265
+                            .once('value', function (snap) {
+                                if (snap.exists()) {
+                                     //referensi = https://github.com/firebase/functions-samples/issues/265
                 //go through each item found and print out the emails
-                snapshot.forEach(function(childSnapshot) {
+                snap.forEach(function(childSnapshot) {
                     var key = childSnapshot.key;
                     var childData = childSnapshot.val();
                     //this will be the actual email value found
