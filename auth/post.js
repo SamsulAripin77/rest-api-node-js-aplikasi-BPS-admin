@@ -222,7 +222,7 @@ app.post("/postUser", (req, res) => {
             } else {
                 console.log('nip atasan tidak ditemukan')
                 res.status(444)
-                //res.send("error nip tidak ditemukan")
+                res.send('{Message: "error"');
 
                 // res.send('error terjadi di ' + error)
             }
