@@ -252,7 +252,7 @@ const cekKodeWilayah = admin
                             .catch(function(error) {
 
                                 res.status(404)
-                                res.send(JsonError)
+                                //res.send(JsonError)
                                 console.log("Error creating new user:", error);
                             });
                         // end create user
