@@ -248,11 +248,11 @@ const cekKodeWilayah = admin
                                                 res.send('error terjadi di ' + error)
                                             });
                                     })
-                            })
+                                })
                             .catch(function(error) {
 
                                 res.status(404)
-                                res.send('error terjadi di ' + error)
+                                res.send(JsonError)
                                 console.log("Error creating new user:", error);
                             });
                         // end create user
