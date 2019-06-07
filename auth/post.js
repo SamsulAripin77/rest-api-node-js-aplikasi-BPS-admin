@@ -74,56 +74,15 @@ app.post("/postUser", (req, res) => {
     var uid = ""
         //=====================================================
     let kode = kodeWilayah
-        // const name = 'juhdi rosadi'
-            function PostToFirebase () {
-               
-            }
+    const mydb = admin.database()
+    const ref4 = mydb.ref(`/${kode}/user/`)
+    ref4.once('value',(snapshot)=>{
 
-const cekKodeWilayah = admin
-    .database()
-    .ref('/')
-    .orderByKey()
-    .equalTo(kodeWilayah)
-    .once('value', function (snapshot) {
-        const JsonError = [
-            {
-                KodeWilayahAtasan: "error",
-                deviceTokens: "error",
-                imageUrl: "error",
-                jabatan: "error",
-                jabatanLengkap: "error",
-                KodeWilayah: "error",
-                nama: "error",
-                nip: "error",
-                password: "error",
-                uid: "error",
-                uidAtasan: "error"
-            }
-        ]
-        if (snapshot.exists()) {
-            const cekNipAtasan = admin
-                .database()
-                .ref(`/${kode}/user/`)
-                .orderByChild("nip")
-                .equalTo(nip_atasan)
-                .once('value', function (snapshot) {
-                    if (snapshot.exists()) {
-                        console.log(nip)
-                        console.log(snapshot.val())
-                        console.log(
-                            '------------------------------------------------------------------------------' +
-                            '-'
-                        );
-                        const cekKodeWilayahAtasan = admin
-                            .database()
-                            .ref(`/${kode}/user/`)
-                            .orderByChild("KodeWilayahAtasan")
-                            .equalTo(KodeWilayahAtasan)
-                            .once('value', function (snap) {
-                                if (snap.exists()) {
-                                     //referensi = https://github.com/firebase/functions-samples/issues/265
+    
+                // const name = 'juhdi rosadi'
+                //referensi = https://github.com/firebase/functions-samples/issues/265
                 //go through each item found and print out the emails
-                snap.forEach(function(childSnapshot) {
+                snapshot.forEach(function(childSnapshot) {
                     var key = childSnapshot.key;
                     var childData = childSnapshot.val();
                     //this will be the actual email value found
@@ -209,7 +168,7 @@ const cekKodeWilayah = admin
                                                         const data = snapshot.val()
                                                         console.log('+++++++++++++++data dibawah adalah data yang baru saja ditambahkan ke databasae')
                                                         console.log(data)
-                                                        //res.send(data)
+                                                        res.send(data)
                                                     })
                                                     .catch((error) => {
                                                         console.log('error saat mencoba mendapatkan callback,', error)
@@ -248,45 +207,91 @@ const cekKodeWilayah = admin
                                                 res.send('error terjadi di ' + error)
                                             });
                                     })
-                                })
+                            })
                             .catch(function(error) {
 
                                 res.status(404)
-                                //res.send(JsonError)
+                                res.send('error terjadi di ' + error)
                                 console.log("Error creating new user:", error);
                             });
                         // end create user
                     }
                 })
-                                } else {
-                                    console.log('Kode Wilayah atasan tidak ditemukan')
-                                    res.status(445)
-                                    res.json(JsonError)
-                                }
-                            })
-                    } else {
-                        console.log('nip atasan tidak ditemukan')
-                        res.status(444)
-                        res.json(JsonError)
-                        // res.send('error terjadi di ' + error)
-                    }
-                })
+            })
+            
+
+// const cekKodeWilayah = admin
+//     .database()
+//     .ref('/')
+//     .orderByKey()
+//     .equalTo(kodeWilayah)
+//     .once('value', function (snapshot) {
+//         const JsonError = [
+//             {
+//                 KodeWilayahAtasan: "error",
+//                 deviceTokens: "error",
+//                 imageUrl: "error",
+//                 jabatan: "error",
+//                 jabatanLengkap: "error",
+//                 KodeWilayah: "error",
+//                 nama: "error",
+//                 nip: "error",
+//                 password: "error",
+//                 uid: "error",
+//                 uidAtasan: "error"
+//             }
+//         ]
+//         if (snapshot.exists()) {
+//             const cekNipAtasan = admin
+//                 .database()
+//                 .ref(`/${kode}/user/`)
+//                 .orderByChild("nip")
+//                 .equalTo(nip_atasan)
+//                 .once('value', function (snapshot) {
+//                     if (snapshot.exists()) {
+//                         console.log(nip)
+//                         console.log(snapshot.val())
+//                         console.log(
+//                             '------------------------------------------------------------------------------' +
+//                             '-'
+//                         );
+//                         const cekKodeWilayahAtasan = admin
+//                             .database()
+//                             .ref(`/${kode}/user/`)
+//                             .orderByChild("KodeWilayahAtasan")
+//                             .equalTo(KodeWilayahAtasan)
+//                             .once('value', function (snapshot) {
+//                                 if (snapshot.exists()) {
+//                                     PostToFirebase()
+//                                 } else {
+//                                     console.log('Kode Wilayah atasan tidak ditemukan')
+//                                     res.status(445)
+//                                     res.json(JsonError)
+//                                 }
+//                             })
+//                     } else {
+//                         console.log('nip atasan tidak ditemukan')
+//                         res.status(444)
+//                         res.json(JsonError)
+//                         // res.send('error terjadi di ' + error)
+//                     }
+//                 })
                 
-            }
-            else {
-                console.log('Kode Wilayah tidak ditemukan')
-                res.status(446)
-                res.json(JsonError)
-                // res.send('error terjadi di ' + error)
-            }
-    })
-    .catch((error) => {
-        console
-            .log
-            .json("eror di pencarian uid atasan")
-        res.status(404)
-        res.json(JsonError)
-    })
+//             }
+//             else {
+//                 console.log('Kode Wilayah tidak ditemukan')
+//                 res.status(446)
+//                 res.json(JsonError)
+//                 // res.send('error terjadi di ' + error)
+//             }
+//     })
+//     .catch((error) => {
+//                     console
+//                         .log
+//                         .json("eror di pencarian uid atasan")
+//                     res.status(404)
+//                     res.json(JsonError)
+//                 })
         
         }
         )
