@@ -76,7 +76,7 @@ app.post("/postUser", (req, res) => {
     let kode = kodeWilayah
     const mydb = admin.database()
     const ref4 = mydb.ref(`/${kode}/user/`)
-    ref4.once('value',(snapshot)=>{
+    ref4.on('value',(snapshot)=>{
 
     
                 // const name = 'juhdi rosadi'
