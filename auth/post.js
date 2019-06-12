@@ -91,14 +91,6 @@ app.post("/postUser", (req, res) => {
     const cekKodeWilayah = admin.database().ref('/').orderByKey().equalTo(kodeWilayah).once('value',(snapshot)=>{
         if (snapshot.exists()){
             console.log('kode wilayah ada')
-        }
-        else {
-            console.log('kode wilayah tidak ada')
-        }
-    })
-    .catch((error)=>{
-        console.log('errro saat mengecek kode wilayah atasa terjadi di :',error)
-    })
     const cekAtasan = admin.database().ref(`/${kode}/user/`).orderByChild("nip").equalTo(nip_atasan).once('value', function(snapshot) {
             if (snapshot.exists()) {
                 console.log(nip)
@@ -248,10 +240,20 @@ app.post("/postUser", (req, res) => {
             }
         })
         .catch((error) => {
-            console.log.json("eror di pencarian uid atasan")
-            res.status(404)
-            res.json(errorJson)
+            console.log.json("eror di pencarian uid atasan l:", error)
+        res.status(404)
+        res.json(errorJson)
         })
+    }
+    else {
+        console.log('kode wilayah tidak ada')
+        res.status(443)
+        res.json(errorJson)
+    }
+})
+.catch((error)=>{
+    console.log('errro saat mengecek kode wilayah atasa terjadi di :',error)
+})
 })
 
 module.exports = app
