@@ -28,8 +28,6 @@ app.get('/homealone', (req, res) => {
     console.log('alone wae ah')
 })
 
-
-
 const serviceAccount = require("./sistempenggansipresensi-firebase-adminsdk-qryrr-23f42c2565.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
