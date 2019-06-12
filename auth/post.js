@@ -72,9 +72,33 @@ app.post("/postUser", (req, res) => {
     const nip = email.substring(0, email.indexOf("@"));
     const username = nip;
     var uid = ""
+    const errorJson  = {
+        KodeWilayahAtasan: "error",
+        deviceTokens: "error",
+        imageUrl: "error",
+        jabatan: "error",
+        jabatanLengkap: "error",
+        KodeWilayah: "error",
+        nama: "error",
+        nip: "error",
+        password: "error",
+        uid: "error",
+        uidAtasan: "error"
+       }
         //=====================================================
     let kode = kodeWilayah
         // const name = 'juhdi rosadi'
+    const cekKodeWilayah = admin.database().ref('/').orderByKey().equalTo(kodeWilayah).once('value',(snapshot)=>{
+        if (snapshot.exists()){
+            console.log('kode wilayah ada')
+        }
+        else {
+            console.log('kode wilayah tidak ada')
+        }
+    })
+    .catch((error)=>{
+        console.log('errro saat mengecek kode wilayah atasa terjadi di :',error)
+    })
     const cekAtasan = admin.database().ref(`/${kode}/user/`).orderByChild("nip").equalTo(nip_atasan).once('value', function(snapshot) {
             if (snapshot.exists()) {
                 console.log(nip)
@@ -218,47 +242,16 @@ app.post("/postUser", (req, res) => {
                 })
 
             } else {
-                const errorJson  = {
-                    KodeWilayahAtasan: "error",
-                    deviceTokens: "error",
-                    imageUrl: "error",
-                    jabatan: "error",
-                    jabatanLengkap: "error",
-                    KodeWilayah: "error",
-                    nama: "error",
-                    nip: "error",
-                    password: "error",
-                    uid: "error",
-                    uidAtasan: "error"
-                   }
                 console.log('nip atasan tidak ditemukan')
                 res.status(444)
-                res.json(
-                    errorJson
-                )
+                res.json(errorJson)
             }
         })
         .catch((error) => {
             console.log.json("eror di pencarian uid atasan")
             res.status(404)
-            res.json(
-                {
-                    KodeWilayahAtasan: "error",
-                    deviceTokens: "error",
-                    imageUrl: "error",
-                    jabatan: "error",
-                    jabatanLengkap: "error",
-                    KodeWilayah: "error",
-                    nama: "error",
-                    nip: "error",
-                    password: "error",
-                    uid: "error",
-                    uidAtasan: "error"
-                   }
-            )
+            res.json(errorJson)
         })
 })
-
-// end add user
 
 module.exports = app

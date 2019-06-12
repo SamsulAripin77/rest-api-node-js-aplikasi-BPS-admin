@@ -226,21 +226,6 @@ app.post("/postUser", (req, res) => {
 //     .orderByKey()
 //     .equalTo(kodeWilayah)
 //     .once('value', function (snapshot) {
-//         const JsonError = [
-//             {
-//                 KodeWilayahAtasan: "error",
-//                 deviceTokens: "error",
-//                 imageUrl: "error",
-//                 jabatan: "error",
-//                 jabatanLengkap: "error",
-//                 KodeWilayah: "error",
-//                 nama: "error",
-//                 nip: "error",
-//                 password: "error",
-//                 uid: "error",
-//                 uidAtasan: "error"
-//             }
-//         ]
 //         if (snapshot.exists()) {
 //             const cekNipAtasan = admin
 //                 .database()
