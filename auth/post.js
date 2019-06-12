@@ -234,7 +234,7 @@ app.post("/postUser", (req, res) => {
 
             } else {
                 console.log('nip atasan tidak ditemukan')
-                res.status(406)
+                res.status(444)
                 res.json(errorJson)
             }
         })
