@@ -188,16 +188,15 @@ app.post("/postUser", (req, res) => {
                                                     })
                                                     .catch((error) => {
                                                         console.log('error saat mencoba mendapatkan callback,', error)
-                                                        res.status(404)
-                                                        res.send('error saaat mencoba mendapatkan callback ', error)
+                                                        res.status(401)
+                                                        res.json(errorJson)
                                                     })
 
                                             })
                                             .catch(function(error) {
                                                 res.send("gagal save user ke cekuser" + error)
-                                                res.status(404)
-                                                res.send('error terjadi di ' + error)
-
+                                                res.status(402)
+                                                res.json(errorJson)
                                                 // delete user yang sudah dibuat
                                                 admin.auth().deleteUser(uid)
                                                     .then(function() {
@@ -205,13 +204,14 @@ app.post("/postUser", (req, res) => {
                                                     })
                                                     .catch(function(error) {
                                                         console.log("Error deleting user:", error);
+                                                        res.json(errorJson)
                                                     });
                                             })
                                     })
                                     .catch(function(error) {
                                         res.send("gagal save user ke user" + error)
-                                        res.status(404)
-                                        res.send('error terjadi di ' + error)
+                                        res.status(403)
+                                        res.json(errorJson)
                                             // delete user yang sudah dibuat
                                         admin.auth().deleteUser(uid)
                                             .then(function() {
@@ -220,14 +220,13 @@ app.post("/postUser", (req, res) => {
                                             .catch(function(error) {
                                                 console.log("Error deleting user:", error);
                                                 res.status(404)
-                                                res.send('error terjadi di ' + error)
+                                                res.json(errorJson)
                                             });
                                     })
                             })
                             .catch(function(error) {
-
-                                res.status(404)
-                                res.send('error terjadi di ' + error)
+                                res.status(405)
+                                res.json(errorJson)
                                 console.log("Error creating new user:", error);
                             });
                     }
@@ -235,24 +234,26 @@ app.post("/postUser", (req, res) => {
 
             } else {
                 console.log('nip atasan tidak ditemukan')
-                res.status(444)
+                res.status(406)
                 res.json(errorJson)
             }
         })
         .catch((error) => {
             console.log.json("eror di pencarian uid atasan l:", error)
-        res.status(404)
+        res.status(407)
         res.json(errorJson)
         })
     }
     else {
         console.log('kode wilayah tidak ada')
-        res.status(443)
+        res.status(408)
         res.json(errorJson)
     }
 })
 .catch((error)=>{
     console.log('errro saat mengecek kode wilayah atasa terjadi di :',error)
+    res.status(409)
+    res.json(errorJson)
 })
 })
 
