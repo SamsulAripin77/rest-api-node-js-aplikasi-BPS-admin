@@ -232,7 +232,8 @@ app.post("/postUser", (req, res) => {
         console.log('errro saat mengecek kode wilayah atasan terjadi di :', error)
         res.status(411)
         res.json(errorJson)
-    })
+    }) 
+    
 
 })
 

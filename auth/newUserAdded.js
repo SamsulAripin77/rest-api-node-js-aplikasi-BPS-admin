@@ -32,7 +32,6 @@ app.get('/getDeleteUser', (req, res) => {
 
 })
 
-
 app.get('/currentUserUpdate', (req, res) => {
     const dba = admin.database()
     const reff = dba.ref('/3202/user/27TdjYw17yWNh9Tc0S5Zh811XUG2')
@@ -53,9 +52,5 @@ app.get('/getUpdateUser', (req, res) => {
         res.send(newPost)
     })
 })
-
-
-
-
 
 module.exports = app
