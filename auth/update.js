@@ -3,9 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express.Router()
 
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // update user
@@ -33,7 +31,7 @@ app.put("/updateUser", (req, res) => {
     // "email": "sunarto@email.com",
     // "password": "sunarkdlkjt",
     // "nip_atasan": "adminSipp",
-    // "KodeWilayahAtasan": "3202" 
+    // "KodeWilayahAtasan": "3202"
     // }
 
 
@@ -68,143 +66,151 @@ app.put("/updateUser", (req, res) => {
         uid: "error",
         uidAtasan: "error"
     }
+    // =====================================================
+    const cekKodeWilayahAtasan = admin.database().ref('/').orderByKey().equalTo(KodeWilayahAtasan).once('value', (snapshot) => {
+        if (snapshot.exists()) {
+            const cekKodeWilayah = admin.database().ref('/').orderByKey().equalTo(kodeWilayah).once('value', (snapshot) => {
+                if (snapshot.exists()) {
+                    console.log('kode wilayah ada')
 
-    const cekAtasan = admin.database().ref(`/${kodeWilayah}/user/`).orderByChild("nip").equalTo(nip_atasan).once('value', function(snapshot) {
-            if (snapshot.exists()) {
-                console.log(nip)
-                console.log(snapshot.val())
-                console.log('data di atasa adalah data atasan akaun yang baru saja diedit')
-                console.log('-------------------------------------------------------------------------------');
-                //referensi = https://github.com/firebase/functions-samples/issues/265
-                //go through each item found and print out the emails
-                snapshot.forEach(function(childSnapshot) {
-                    var key = childSnapshot.key;
-                    var childData = childSnapshot.val();
-                    //this will be the actual email value found
-                    const uidAtasan = childData.uid
-                    const nama_atasan = childData.nama
-                    console.log(childData.uid);
-                    console.log(childData.nama);
-                    // res.send('berhasil mendapat uid')
-                    //=====================================================
+                    const cekAtasan = admin.database().ref(`/${kodeWilayah}/user/`).orderByChild("nip").equalTo(nip_atasan).once('value', function (snapshot) {
+                        if (snapshot.exists()) {
+                            console.log(nip)
+                            console.log(snapshot.val())
+                            console.log('data di atasa adalah data atasan akaun yang baru saja diedit')
+                            console.log('-------------------------------------------------------------------------------');
+                            // referensi = https://github.com/firebase/functions-samples/issues/265
+                            // go through each item found and print out the emails
+                            snapshot.forEach(function (childSnapshot) {
+                                var key = childSnapshot.key;
+                                var childData = childSnapshot.val();
+                                // this will be the actual email value found
+                                const uidAtasan = childData.uid
+                                const nama_atasan = childData.nama
+                                console.log(childData.uid);
+                                console.log(childData.nama);
+                                // res.send('berhasil mendapat uid')
+                                // =====================================================
 
-                    // get user uid
-                    admin.auth().getUserByEmail(email)
-                        .then(function(userRecord) {
-
-
-                            // See the UserRecord reference doc for the contents of userRecord.
-                            const uid = userRecord.uid
-                            console.log("Successfully fetched user data:", uid);
+                                // get user uid
+                                admin.auth().getUserByEmail(email).then(function (userRecord) { // See the UserRecord reference doc for the contents of userRecord.
+                                    const uid = userRecord.uid
+                                    console.log("Successfully fetched user data:", uid);
 
 
-                            // database
+                                    // database
 
-                            const db = admin.database()
+                                    const db = admin.database()
 
-                            //update
-                            admin.auth().updateUser(uid, {
+                                    // update
+                                    admin.auth().updateUser(uid, {
 
-                                    email: email,
-                                    emailVerified: emailVerified,
-                                    phoneNumber: phoneNumber,
-                                    password: password,
-                                    displayName: displayName,
-                                    photoURL: photoURL,
-                                    disabled: disabled
+                                        email: email,
+                                        emailVerified: emailVerified,
+                                        phoneNumber: phoneNumber,
+                                        password: password,
+                                        displayName: displayName,
+                                        photoURL: photoURL,
+                                        disabled: disabled
 
-                                })
-                                .then(function(userRecord) {
-                                    const ref1 = db.ref(`/${kodeWilayah}/cekuser/${nip}`)
-                                    const ref2 = db.ref(`/${kodeWilayah}/user/${uid}`)
+                                    }).then(function (userRecord) {
+                                        const ref1 = db.ref(`/${kodeWilayah}/cekuser/${nip}`)
+                                        const ref2 = db.ref(`/${kodeWilayah}/user/${uid}`)
 
-                                    const ref = db.ref(`/${kodeWilayah}/user/${uid}`)
-                                    ref.once("value", function(snapshot) {
+                                        const ref = db.ref(`/${kodeWilayah}/user/${uid}`)
+                                        ref.once("value", function (snapshot) {
                                             const data = snapshot.val()
                                             imageUrl = data.imageUrl
 
                                             // add user ke user
                                             ref2.set({
-                                                    deviceTokens,
-                                                    imageUrl,
-                                                    jabatan,
-                                                    jabatanLengkap,
-                                                    kodeWilayah,
-                                                    nama,
-                                                    nip,
-                                                    password,
-                                                    uid,
-                                                    KodeWilayahAtasan,
-                                                    // nip_atasan,
-                                                    // nama_atasan,
-                                                    uidAtasan
-                                                })
-                                                .then(function(data) {
-                                                    console.log("update user di user berhasil");
+                                                deviceTokens,
+                                                imageUrl,
+                                                jabatan,
+                                                jabatanLengkap,
+                                                kodeWilayah,
+                                                nama,
+                                                nip,
+                                                password,
+                                                uid,
+                                                KodeWilayahAtasan,
+                                                // nip_atasan,
+                                                // nama_atasan,
+                                                uidAtasan
+                                            }).then(function (data) {
+                                                console.log("update user di user berhasil");
 
-                                                    ref1.set({
-                                                            username,
-                                                            password
-                                                        })
-                                                        .then(function() {
-                                                            const db = admin.database()
-                                                            const ref = db.ref(`/${kodeWilayah}/user/${uid}`)
-                                                            ref.once('value', function(snapshot) {
-                                                                    const data = snapshot.val()
-                                                                    console.log('=================data yang baru saja diedit adalah==================')
-                                                                    console.log(data)
-                                                                    res.send(data)
-                                                                })
-                                                                .catch((error) => {
-                                                                    console.log('error terjadi di ', error)
-                                                                    res.status(405)
-                                                                    res.send('error terjadi di : ', error)
-                                                                })
-                                                            console.log("update user di cekuser berhasil");
-                                                        })
-                                                        .catch(function(error) {
-                                                            res.status(405)
-                                                            res.send('error terjadi di ' + error)
-                                                            console.log("update user dicek user gagal :" + error);
-                                                        })
-
-                                                })
-                                                .catch(function(error) {
+                                                ref1.set({username, password}).then(function () {
+                                                    const db = admin.database()
+                                                    const ref = db.ref(`/${kodeWilayah}/user/${uid}`)
+                                                    ref.once('value', function (snapshot) {
+                                                        const data = snapshot.val()
+                                                        console.log('=================data yang baru saja diedit adalah==================')
+                                                        console.log(data)
+                                                        res.send(data)
+                                                    }).catch((error) => {
+                                                        console.log('error terjadi di ', error)
+                                                        res.status(405)
+                                                        res.json(errorJson)
+                                                    })
+                                                    console.log("update user di cekuser berhasil");
+                                                }).catch(function (error) {
                                                     res.status(405)
                                                     res.send('error terjadi di ' + error)
-                                                    console.log("update user di user gagal :" + error);
-
+                                                    res.json(errorJson)
                                                 })
+
+                                            }).catch(function (error) {
+                                                res.status(405)
+                                                res.send('error terjadi di ' + error)
+                                                res.json(errorJson)
+
+                                            })
                                         })
                                         // See the UserRecord reference doc for the contents of userRecord.
-                                    console.log("Successfully updated user", uid);
-                                })
-                                .catch(function(error) {
-                                    console.log("Error updating user:", error);
+                                        console.log("Successfully updated user", uid);
+                                    }).catch(function (error) {
+                                        console.log("Error updating user:", error);
+                                        res.status(405)
+                                        res.json(errorJson)
+                                    });
+                                }).catch(function (error) {
+                                    console.log('update gagal')
                                     res.status(405)
-                                    res.send('error terjadi di ' + error)
+                                    res.json(errorJson)
                                 });
-                            // end database
+                            });
 
-
-                        })
-                        .catch(function(error) {
-                            res.status(405)
-                            res.send('error terjadi di ' + error)
-                        });
-                });
-
-            } else {
-                console.log('nip atasan tidak ditemukan')
-                res.status(444)
+                        } else {
+                            console.log('nip atasan tidak ditemukan')
+                            res.status(444)
+                            res.json(errorJson)
+                        }
+                    }).catch((error) => {
+                        console.log("eror di pencarian uid atasan")
+                        res.status(405)
+                        res.json(errorJson)
+                    })
+                } else {
+                    console.log('kode wilayah tidak ada')
+                    res.status(408)
+                    res.json(errorJson)
+                }
+            }).catch((error) => {
+                console.log('errro saat mengecek kode wilayah terjadi di :', error)
+                res.status(409)
                 res.json(errorJson)
-            }
-        })
-        .catch((error) => {
-            console.log("eror di pencarian uid atasan")
-            res.status(405)
-            res.send('error terjadi di ' + error)
-        })
+            })
+        } else {
+            console.log('kode wilayah atasan tidak ada')
+            res.status(410)
+            res.json(errorJson)
+        }
+    }).catch((error) => {
+        console.log('errro saat mengecek kode wilayah atasan terjadi di :', error)
+        res.status(411)
+        res.json(errorJson)
+    })
 
 
 })
