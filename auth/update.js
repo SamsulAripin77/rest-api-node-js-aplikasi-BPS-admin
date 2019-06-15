@@ -197,7 +197,7 @@ app.put("/updateUser", (req, res) => {
             } else {
                 console.log('nip atasan tidak ditemukan')
                 res.json(errorJson)
-                res.send('data atasan tidak ditemukan')
+                res.status(509)
             }
         })
         .catch((error) => {

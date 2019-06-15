@@ -64,6 +64,19 @@ app.post("/postUser", (req, res) => {
     const username = nip;
     var uid = ""
     let kode = kodeWilayah
+    const errorJson = {
+        KodeWilayahAtasan: "error",
+        deviceTokens: "error",
+        imageUrl: "error",
+        jabatan: "error",
+        jabatanLengkap: "error",
+        KodeWilayah: "error",
+        nama: "error",
+        nip: "error",
+        password: "error",
+        uid: "error",
+        uidAtasan: "error"
+    }
 
 // =====================================================
     const cekKodeWilayahAtasan = admin.database().ref('/').orderByKey().equalTo(KodeWilayahAtasan).once('value', (snapshot) => {
