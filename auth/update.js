@@ -55,6 +55,19 @@ app.put("/updateUser", (req, res) => {
     var nama = req.body.nama || 'nama nama ok'
     var nip = email.substring(0, email.indexOf("@"));
     var username = nip
+    const errorJson = {
+        KodeWilayahAtasan: "error",
+        deviceTokens: "error",
+        imageUrl: "error",
+        jabatan: "error",
+        jabatanLengkap: "error",
+        KodeWilayah: "error",
+        nama: "error",
+        nip: "error",
+        password: "error",
+        uid: "error",
+        uidAtasan: "error"
+    }
 
     const cekAtasan = admin.database().ref(`/${kodeWilayah}/user/`).orderByChild("nip").equalTo(nip_atasan).once('value', function(snapshot) {
             if (snapshot.exists()) {
@@ -183,7 +196,7 @@ app.put("/updateUser", (req, res) => {
 
             } else {
                 console.log('nip atasan tidak ditemukan')
-                res.status(503)
+                res.json(errorJson)
                 res.send('data atasan tidak ditemukan')
             }
         })
