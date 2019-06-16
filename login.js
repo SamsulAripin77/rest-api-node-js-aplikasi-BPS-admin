@@ -19,10 +19,4 @@ app.get('/login',(req,res)=>{
         console.log('error terjadi di: ',error)
     })
 })
-
-const PORT = process.env.PORT || 5000
-app.listen(PORT, () => {
-    console.log('server berjalan di port ' + PORT)
-})
-
 module.exports = app
