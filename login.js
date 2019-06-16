@@ -7,11 +7,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.get('/login',(req,res)=>{
-    let email = req.body.email;
+    let email = '8947283947389@email.com';
     let pass = req.body.pass
 
     admin.auth().getUserByEmail(email)
     .then((userRecord)=>{
+        uid = userRecord.uid
+        console.log(uid)
+        res.json(uid)
         console.log('berhasil login')
     })
     .catch((error)=>{
