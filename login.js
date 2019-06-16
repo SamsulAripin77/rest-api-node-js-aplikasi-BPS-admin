@@ -12,7 +12,6 @@ app.get('/login',(req,res)=>{
 
     admin.auth().getUserByEmail(email)
     .then((userRecord)=>{
-        console.log(userRecord)
         console.log('berhasil login')
     })
     .catch((error)=>{
