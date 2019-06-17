@@ -7,8 +7,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.get('/login',(req,res)=>{
-    let email = '8947283947389@email.com';
-    let pass = req.body.pass
+    const email = req.body.email
+    const pass = req.body.pass
 
     admin.auth().getUserByEmail(email)
     .then((userRecord)=>{
@@ -16,6 +16,9 @@ app.get('/login',(req,res)=>{
         console.log(uid)
         res.json(uid)
         console.log('berhasil login')
+
+
+
     })
     .catch((error)=>{
         console.log('error terjadi di: ',error)
