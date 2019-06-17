@@ -10,7 +10,7 @@ app.get('/login',(req,res)=>{
     const email = req.body.email
     const pass = req.body.pass
 
-    admin.auth().getUserByEmailAndPassword(email,pass)
+    admin.auth().signInWithEmailAndPassword(email,pass)
     .then((userRecord)=>{
         uid = userRecord.uid
         console.log(uid)
