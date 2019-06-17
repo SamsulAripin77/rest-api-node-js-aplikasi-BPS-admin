@@ -10,15 +10,12 @@ app.get('/login',(req,res)=>{
     const email = req.body.email
     const pass = req.body.pass
 
-    admin.auth().getUserByEmail(email)
+    admin.auth().getUserByEmailAndPassword(email,pass)
     .then((userRecord)=>{
         uid = userRecord.uid
         console.log(uid)
         res.json(uid)
         console.log('berhasil login')
-
-
-
     })
     .catch((error)=>{
         console.log('error terjadi di: ',error)
