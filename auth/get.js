@@ -7,8 +7,6 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
-
-
 // get user
 app.get("/user", (req, res) => {
         const email = '17184065@email.com'
