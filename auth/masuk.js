@@ -54,7 +54,7 @@ const email = req.body.email || '4234324242r5453@email.com'
 app.get('/listadmin', (req, res) => {
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
-    const email = req.body.email || '4234324242r5453@email.com'
+    const email = req.body.email || '@email.com'
         const password = req.body.password || '58409584950'
         const kodeWilayah = req.body.kodeWilayah || '3203'
         const username = email.substring(0, email.indexOf("@"))
@@ -110,11 +110,9 @@ app.get('/listadmin', (req, res) => {
 })
 
 app.get('/checkExist',(req,res)=>{
-    app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
     const email = req.body.email || '10000@email.com'
     const password = req.body.password || '58409584950'
-    const kodeWilayah = req.body.kodeWilayah || '3203'
+    const kodeWilayah = req.body.kodeWilayah || '3202'
     const username = email.substring(0, email.indexOf("@"))
     const errorJson = {
         KodeWilayahAtasan: "error",
