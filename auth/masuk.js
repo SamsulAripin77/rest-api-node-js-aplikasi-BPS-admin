@@ -129,7 +129,7 @@ app.get('/checkExist',(req,res)=>{
     }
     const nip_atasan = req.body.nip_atasan || '10000'
     const cekAtasan = admin.database().ref(`/${kodeWilayah}/user/`).orderByChild("nip").equalTo(nip_atasan).once('value', function (snapshot) {
-        if (snapshot.exists()) {
+        if (!snapshot.exists()) {
             console.log('suskses mendapatkan nip atasan')
             res.json({data: nip_atasan})
         }
