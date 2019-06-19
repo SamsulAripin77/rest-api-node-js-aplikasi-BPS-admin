@@ -5,11 +5,24 @@ const app = express.Router()
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-
+const email = req.body.email || '4234324242r5453@email.com'
+    const password = req.body.password || '58409584950'
+    const kodeWilayah = req.body.kodeWilayah || '3203'
+    const username = email.substring(0, email.indexOf("@"))
+    const errorJson = {
+        KodeWilayahAtasan: "error",
+        deviceTokens: "error",
+        imageUrl: "error",
+        jabatan: "error",
+        jabatanLengkap: "error",
+        KodeWilayah: "error",
+        nama: "error",
+        username: "error",
+        password: "error",
+        uid: "error",
+        uidAtasan: "error"
+    }
 app.get('/login', (req, res) => {
-    const email = req.body.email
-
-    const kodeWilayah = req.body.kodeWilayah
     admin.auth().getUserByEmail(email).then((userRecord) => {
         const uid = userRecord.uid
         const cekKodeWilayah = admin.database().ref('/').orderByKey().equalTo(kodeWilayah).once('value', (snapshot) => {
@@ -36,9 +49,7 @@ app.get('/login', (req, res) => {
 
 
 app.get('/listadmin', (req, res) => {
-    const kode_wilayah = req.body.kode_wilayah || '3202'
-    const email = req.body.email || 'adminSipp@email.com'
-
+   
     admin.auth().getUserByEmail(email).then((userRecord) => {
         const uid = userRecord.uid
 
@@ -77,26 +88,25 @@ app.get('/listadmin', (req, res) => {
 
 })
 
+app.get('/checkExist',(req,res)=>{
+    const nip_atasan = '10000'
+    const cekAtasan = admin.database().ref(`/${kode}/user/`).orderByChild("nip").equalTo(nip_atasan).once('value', function (snapshot) {
+        if (snapshot.exists()) {
+            console.log('suskses mendapatkan nip atasan')
+        }
+        else {
+            console.log('error terjadi di: ', error);
+         res.json({err : error})
+        }
+    })
+    .catch((error)=>{
+         console.log('error terjadi di: ', error);
+         res.json({err : error})
+    })
+})
+
 // ==========================================================================================
 app.post("/postHero", (req, res) => {
-
-    const email = req.body.email || '4234324242r5453@email.com'
-    const password = req.body.password || '58409584950'
-    const kodeWilayah = req.body.kodeWilayah || '3203'
-    const username = email.substring(0, email.indexOf("@"))
-    const errorJson = {
-        KodeWilayahAtasan: "error",
-        deviceTokens: "error",
-        imageUrl: "error",
-        jabatan: "error",
-        jabatanLengkap: "error",
-        KodeWilayah: "error",
-        nama: "error",
-        username: "error",
-        password: "error",
-        uid: "error",
-        uidAtasan: "error"
-    }
     // ====================================================
     console.log('kode wilayah ada')
     const cekAtasan = admin.database().ref('/admin/').orderByChild("username").equalTo(username).once('value', function (snapshot) {
