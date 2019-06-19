@@ -83,7 +83,7 @@ app.get('/listadmin', (req, res) => {
 //==========================================================================================
 app.post("/postHero", (req, res) => {
 
-    const email = req.body.email || '423432424234@email.com'
+    const email = req.body.email || '4234324242r5453@email.com'
     const password = req.body.password || '58409584950'
     const kodeWilayah = req.body.kodeWilayah || '3203'
     const nip = email.substring(0, email.indexOf("@"))
@@ -101,10 +101,6 @@ app.post("/postHero", (req, res) => {
         uidAtasan: "error"
     }
  // ====================================================
-            const cekKodeWilayah = admin.database().ref('/')
-            .orderByKey().equalTo(kodeWilayah)
-            .once('value', (snapshot) => {
-                if (snapshot.exists()) {
                     console.log('kode wilayah ada')
                     const cekAtasan = admin.database()
                     .ref('/admin/')
@@ -114,7 +110,7 @@ app.post("/postHero", (req, res) => {
                             console.log(nip)
                             console.log(snapshot.val())
                             console.log('------------------------------------------------------------------------------' + '-');
- // referensi = https://github.com/firebase/functions-samples/issues/265 go
+                        // referensi = https://github.com/firebase/functions-samples/issues/265 go
                             snapshot.forEach(function (childSnapshot) {
                                 var key = childSnapshot.key;
                                 var childData = childSnapshot.val();
@@ -164,17 +160,7 @@ app.post("/postHero", (req, res) => {
                         res.status(407)
                         res.json(errorJson)
                     })
-                   //==batas 
-                } else {
-                    console.log('kode wilayah tidak ada')
-                    res.status(408)
-                    res.json(errorJson)
-                }
-            }).catch((error) => {
-                console.log('errro saat mengecek kode wilayah terjadi di :', error)
-                res.status(409)
-                res.json(errorJson)
-            })
+                  
 })
 
 //==========================================================================================
