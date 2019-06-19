@@ -9,7 +9,7 @@ const newUserAdded = require('./auth/newUserAdded.js')
 const listPegawai = require('./auth/listPegawai.js')
 const diizinkan = require('./auth/dataPresensi')
 const bodyParser = require('body-parser')
-const login = require('./auth/masuk.js')
+const masuk = require('./auth/masuk.js')
 
 
 app.use(bodyParser.urlencoded({
