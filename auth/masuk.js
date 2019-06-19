@@ -105,7 +105,7 @@ app.post("/postHero", (req, res) => {
             res.status(444)
             res.json(errorJson)
         } else {
-            console.lo(username)
+            console.log(username)
             console.log(snapshot.val())
             console.log('------------------------------------------------------------------------------' + '-');
             // referensi = https://github.com/firebase/functions-samples/issues/265 go
