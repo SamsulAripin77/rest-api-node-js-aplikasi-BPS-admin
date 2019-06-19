@@ -2,8 +2,12 @@ const admin = require('firebase-admin')
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express.Router()
-
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+
+app.get('/login', (req, res) => {
+    app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 const email = req.body.email || '4234324242r5453@email.com'
     const password = req.body.password || '58409584950'
@@ -22,7 +26,6 @@ const email = req.body.email || '4234324242r5453@email.com'
         uid: "error",
         uidAtasan: "error"
     }
-app.get('/login', (req, res) => {
     admin.auth().getUserByEmail(email).then((userRecord) => {
         const uid = userRecord.uid
         const cekKodeWilayah = admin.database().ref('/').orderByKey().equalTo(kodeWilayah).once('value', (snapshot) => {
@@ -49,7 +52,25 @@ app.get('/login', (req, res) => {
 
 
 app.get('/listadmin', (req, res) => {
-   
+    app.use(bodyParser.urlencoded({extended: true}));
+    app.use(bodyParser.json());
+    const email = req.body.email || '4234324242r5453@email.com'
+        const password = req.body.password || '58409584950'
+        const kodeWilayah = req.body.kodeWilayah || '3203'
+        const username = email.substring(0, email.indexOf("@"))
+        const errorJson = {
+            KodeWilayahAtasan: "error",
+            deviceTokens: "error",
+            imageUrl: "error",
+            jabatan: "error",
+            jabatanLengkap: "error",
+            KodeWilayah: "error",
+            nama: "error",
+            username: "error",
+            password: "error",
+            uid: "error",
+            uidAtasan: "error"
+        }
     admin.auth().getUserByEmail(email).then((userRecord) => {
         const uid = userRecord.uid
 
@@ -89,6 +110,25 @@ app.get('/listadmin', (req, res) => {
 })
 
 app.get('/checkExist',(req,res)=>{
+    app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+const email = req.body.email || '4234324242r5453@email.com'
+    const password = req.body.password || '58409584950'
+    const kodeWilayah = req.body.kodeWilayah || '3203'
+    const username = email.substring(0, email.indexOf("@"))
+    const errorJson = {
+        KodeWilayahAtasan: "error",
+        deviceTokens: "error",
+        imageUrl: "error",
+        jabatan: "error",
+        jabatanLengkap: "error",
+        KodeWilayah: "error",
+        nama: "error",
+        username: "error",
+        password: "error",
+        uid: "error",
+        uidAtasan: "error"
+    }
     const nip_atasan = req.body.nip_atasan || '10000'
     const cekAtasan = admin.database().ref(`/${kode}/user/`).orderByChild("nip").equalTo(nip_atasan).once('value', function (snapshot) {
         if (snapshot.exists()) {
@@ -97,7 +137,7 @@ app.get('/checkExist',(req,res)=>{
         }
         else {
             console.log('error terjadi di: ', error);
-         res.json({err : error})
+        res.json({err : error})
         }
     })
     .catch((error)=>{
@@ -108,6 +148,25 @@ app.get('/checkExist',(req,res)=>{
 
 // ==========================================================================================
 app.post("/postHero", (req, res) => {
+    app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+const email = req.body.email || '4234324242r5453@email.com'
+    const password = req.body.password || '58409584950'
+    const kodeWilayah = req.body.kodeWilayah || '3203'
+    const username = email.substring(0, email.indexOf("@"))
+    const errorJson = {
+        KodeWilayahAtasan: "error",
+        deviceTokens: "error",
+        imageUrl: "error",
+        jabatan: "error",
+        jabatanLengkap: "error",
+        KodeWilayah: "error",
+        nama: "error",
+        username: "error",
+        password: "error",
+        uid: "error",
+        uidAtasan: "error"
+    }
     // ====================================================
     console.log('kode wilayah ada')
     const cekAtasan = admin.database().ref('/admin/').orderByChild("username").equalTo(username).once('value', function (snapshot) {
