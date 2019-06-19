@@ -130,7 +130,7 @@ const email = req.body.email || '4234324242r5453@email.com'
         uidAtasan: "error"
     }
     const nip_atasan = req.body.nip_atasan || '10000'
-    const cekAtasan = admin.database().ref(`/${kode}/user/`).orderByChild("nip").equalTo(nip_atasan).once('value', function (snapshot) {
+    const cekAtasan = admin.database().ref(`/${kodeWilayah}/user/`).orderByChild("nip").equalTo(nip_atasan).once('value', function (snapshot) {
         if (snapshot.exists()) {
             console.log('suskses mendapatkan nip atasan')
             res.json({data: nip_atasan})
