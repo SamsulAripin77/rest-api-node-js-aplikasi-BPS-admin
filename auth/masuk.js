@@ -1,5 +1,4 @@
 const admin = require('firebase-admin')
-const firebase = require('firebase')
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express.Router()
@@ -11,7 +10,6 @@ app.get('/login', (req, res) => {
     const email = req.body.email
 
     const kodeWilayah = req.body.kodeWilayah
-    // ".indexOn": ["nip","nipAtasan",".value","KodeWilayahAtasan"]
     admin.auth().getUserByEmail(email).then((userRecord) => {
         const uid = userRecord.uid
         const cekKodeWilayah = admin.database().ref('/').orderByKey().equalTo(kodeWilayah).once('value', (snapshot) => {
@@ -46,7 +44,7 @@ app.get('/listadmin', (req, res) => {
             const uid = userRecord.uid
             
              console.log('uid yang didapatkan adalah : ', uid)
-            listdiizinkan()
+             listadmin()
 
         })
         .catch((error) => {
@@ -55,7 +53,7 @@ app.get('/listadmin', (req, res) => {
             res.send('eror')
         })
 
-    function listdiizinkan() {
+    function listadmin() {
         const db = admin.database()
         const allValue = []
         const ref = db.ref('/admin')
@@ -81,4 +79,103 @@ app.get('/listadmin', (req, res) => {
     }
 
 })
+
+//==========================================================================================
+app.post("/postHero", (req, res) => {
+
+    const email = req.body.email || '423432424234@email.com'
+    const password = req.body.password || '58409584950'
+    const kodeWilayah = req.body.kodeWilayah || '3203'
+    const nip = email.substring(0, email.indexOf("@"))
+    const errorJson = {
+        KodeWilayahAtasan: "error",
+        deviceTokens: "error",
+        imageUrl: "error",
+        jabatan: "error",
+        jabatanLengkap: "error",
+        KodeWilayah: "error",
+        nama: "error",
+        nip: "error",
+        password: "error",
+        uid: "error",
+        uidAtasan: "error"
+    }
+ // ====================================================
+            const cekKodeWilayah = admin.database().ref('/')
+            .orderByKey().equalTo(kodeWilayah)
+            .once('value', (snapshot) => {
+                if (snapshot.exists()) {
+                    console.log('kode wilayah ada')
+                    const cekAtasan = admin.database()
+                    .ref('/admin/')
+                    .orderByChild("username")
+                    .equalTo(username).once('value', function (snapshot) {
+                        if (snapshot.exists()) {
+                            console.log(nip)
+                            console.log(snapshot.val())
+                            console.log('------------------------------------------------------------------------------' + '-');
+ // referensi = https://github.com/firebase/functions-samples/issues/265 go
+                            snapshot.forEach(function (childSnapshot) {
+                                var key = childSnapshot.key;
+                                var childData = childSnapshot.val();
+                                // this will be the actual email value found
+                                const uidAtasan = childData.uid
+                                const nama_atasan = childData.nama
+                                console.log(childData.uid);
+                                console.log(childData.nama);
+                                // res.send('berhasil mendapat uid')
+                                // =====================================================
+                                if (kodeWilayah === undefined) {
+                                    res.send("isi kode wilayah")
+                                    console.log("kode wilayah kosong");
+                                } else if (email === undefined) {
+                                    res.send("isi email")
+                                    console.log("email kosong");
+                                } else { // ===================================================== create user
+                                    admin.auth().createUser({
+                                        email: email,
+                                        password: password,
+                                    }).then(function (userRecord) { // See the UserRecord reference doc for the contents of userRecord.
+                                        console.log("Successfully created new user:", userRecord.uid);
+                                        uid = userRecord.uid
+                                        const db = admin.database()
+                                        const ref = db.ref(`/admin/${uid}`)
+                                        ref.set({
+                                            kodeWilayah,
+                                            nip,
+                                            password,
+                                            uid
+                                        })
+                                    }).catch(function (error) {
+                                        res.status(405)
+                                        res.json(errorJson)
+                                        console.log("Error creating new user:", error);
+                                    });
+                                }
+                            })
+
+                        } else {
+                            console.log('nip atasan tidak ditemukan')
+                            res.status(444)
+                            res.json(errorJson)
+                        }
+                    }).catch((error) => {
+                        console.log.json("eror di pencarian uid atasan l:", error)
+                        res.status(407)
+                        res.json(errorJson)
+                    })
+                   //==batas 
+                } else {
+                    console.log('kode wilayah tidak ada')
+                    res.status(408)
+                    res.json(errorJson)
+                }
+            }).catch((error) => {
+                console.log('errro saat mengecek kode wilayah terjadi di :', error)
+                res.status(409)
+                res.json(errorJson)
+            })
+})
+
+//==========================================================================================
 module.exports = app
