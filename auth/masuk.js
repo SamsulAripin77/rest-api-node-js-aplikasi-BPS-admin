@@ -86,7 +86,7 @@ app.post("/postHero", (req, res) => {
     const email = req.body.email || '4234324242r5453@email.com'
     const password = req.body.password || '58409584950'
     const kodeWilayah = req.body.kodeWilayah || '3203'
-    const nip = email.substring(0, email.indexOf("@"))
+    const username = email.substring(0, email.indexOf("@"))
     const errorJson = {
         KodeWilayahAtasan: "error",
         deviceTokens: "error",
@@ -95,7 +95,7 @@ app.post("/postHero", (req, res) => {
         jabatanLengkap: "error",
         KodeWilayah: "error",
         nama: "error",
-        nip: "error",
+        username: "error",
         password: "error",
         uid: "error",
         uidAtasan: "error"
@@ -107,10 +107,10 @@ app.post("/postHero", (req, res) => {
                     .orderByChild("username")
                     .equalTo(username).once('value', function (snapshot) {
                         if (snapshot.exists()) {
-                            console.log(nip)
+                            console.lo(username)
                             console.log(snapshot.val())
                             console.log('------------------------------------------------------------------------------' + '-');
-                        // referensi = https://github.com/firebase/functions-samples/issues/265 go
+                         // referensi = https://github.com/firebase/functions-samples/issues/265 go
                             snapshot.forEach(function (childSnapshot) {
                                 var key = childSnapshot.key;
                                 var childData = childSnapshot.val();
@@ -138,7 +138,7 @@ app.post("/postHero", (req, res) => {
                                         const ref = db.ref(`/admin/${uid}`)
                                         ref.set({
                                             kodeWilayah,
-                                            nip,
+                                            username,
                                             password,
                                             uid
                                         })
@@ -151,7 +151,7 @@ app.post("/postHero", (req, res) => {
                             })
 
                         } else {
-                            console.log('nip atasan tidak ditemukan')
+                            console.log('username atasan tidak ditemukan')
                             res.status(444)
                             res.json(errorJson)
                         }
