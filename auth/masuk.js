@@ -93,6 +93,7 @@ app.get('/checkExist',(req,res)=>{
     const cekAtasan = admin.database().ref(`/${kode}/user/`).orderByChild("nip").equalTo(nip_atasan).once('value', function (snapshot) {
         if (snapshot.exists()) {
             console.log('suskses mendapatkan nip atasan')
+            res.json({data: nip_atasan})
         }
         else {
             console.log('error terjadi di: ', error);
